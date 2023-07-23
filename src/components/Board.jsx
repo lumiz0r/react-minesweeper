@@ -1,60 +1,88 @@
 import { useState, useEffect } from "react";
-import { Cell } from "./Cell";
+import Cell from "./Cell";
 
-const INITIAL_BOMBS = 10
+function Board() {
+  const [board, setBoard] = useState(generateBoard());
 
-export const Board = () => {
-    const [board, setBoard] = useState(Array(10).fill(Array(10).fill(null)));
-    const [time, setTime] = useState(0);
-    const [flags, setFlags] = useState(INITIAL_BOMBS);
-    // const [bombs, setBombs] = useState(INITIAL_BOMBS);
-    const [gameStarted, setGameStarted] = useState(false);
-  
+  const [gameStarted, setGameStarted] = useState(false);
+  const [time, setTime] = useState(0);
 
-    // TIMER
-    useEffect(() => {
-      if (gameStarted) {
-        const timer = setInterval(() => {
-          setTime(time => time + 1);
-        }, 1000);
-        return () => clearInterval(timer);
+  useEffect(() => {
+    if (gameStarted) {
+      const timer = setInterval(() => {
+        setTime((time) => time + 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [gameStarted]);
+
+  function generateBoard() {
+    let board = Array.from({ length: 10 }, () => Array(10).fill(false));
+    for (let i = 0; i < 10; i++) {
+      let row = Math.floor(Math.random() * 10);
+      let col = Math.floor(Math.random() * 10);
+      board[row][col] = "B";
+    }
+    return board;
+  }
+
+  const calculateAdjacentBombs = (i, j) => {
+    let count = 0;
+    for (let x = Math.max(i - 1, 0); x <= Math.min(i + 1, 9); x++) {
+      for (let y = Math.max(j - 1, 0); y <= Math.min(j + 1, 9); y++) {
+        if (board[x][y] === 'B') count++;
       }
-    }, [gameStarted]);
-  
-
-    // CELL CLICK
-    const handleCellClick = () => {
-      if (!gameStarted) {
-        setGameStarted(true);
-      }
-      // handle cell click logic here
-    };
-  
-    // FLAG CLICK
-    // const handleFlagClick = () => {
-    //   setFlags(flags => flags - 1);
-    //   // handle flag click logic here
-    // };
-  
-    return (
-      <div>
-        <div>Time: {time}</div>
-        <div>Flags: {flags}</div>
-        <table>
-          <tbody>
-            {board.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                {row.map((cell, cellIndex) => (
-                  <Cell 
-                  key={cellIndex} 
-                  onClick={handleCellClick}>
-
-                  </Cell>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+    }
+    return count;
   };
+  
+  const handleClick = (i, j) => {
+    if (board[(i, j)] === true) {
+      return;
+    }
+
+    const newBoard = [...board];
+    if (newBoard[i][j] === "B") {
+      revealBombs();
+      setGameStarted(false);
+      //   reset
+      //   setBoard(generateBoard());
+    } else {
+      newBoard[i][j] = calculateAdjacentBombs(i, j);
+      setBoard(newBoard);
+    }
+
+
+
+    // Use Effect
+    if (!gameStarted) {
+      setGameStarted(true);
+    }
+  };
+
+  const revealBombs = () => {
+    let newBoard = board.map((row) =>
+      row.map((cell) => (cell === "B" ? "B_clicked" : true))
+    );
+    setBoard(newBoard);
+  };
+
+  return (
+    <div className="board">
+      <div>Time: {time}</div>
+      {board.map((row, i) => (
+        <div key={i} className="row">
+          {row.map((isClicked, j) => (
+            <Cell
+              key={`${i}-${j}`}
+              onClick={() => handleClick(i, j)}
+              value={board[i][j]}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default Board;

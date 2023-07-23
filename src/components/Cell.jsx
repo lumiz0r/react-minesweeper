@@ -1,12 +1,17 @@
 // eslint-disable-next-line react/prop-types
-export const Cell = ({ onClick, disabled }) => {
-    
+function Cell({ onClick, value }) {
   return (
-    <td
-      onClick={onClick}
-      style={{ backgroundColor: disabled ? "#333" : "#000" }} // Customize the darkened style
+    <div 
+      onClick={onClick} 
+      className={`cell ${typeof value === 'number' || value === 'B_clicked' ? 'clicked' : ''}`}
     >
-      {/* display cell value here */}
-    </td>
+      {typeof value === 'number' ? value : (value === 'B_clicked' ? '💣' : '')}
+    </div>
   );
-};
+}
+
+
+
+
+
+export default Cell

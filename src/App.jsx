@@ -1,13 +1,15 @@
-import { Board } from './components/Board'
-import './App.css'
+import "./App.css";
+import Board from "./components/Board";
 
 function App() {
-
   return (
     <>
-      <Board />
+      <h1>Minesweeper React</h1>
+      <div className="">
+        <Board />
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
