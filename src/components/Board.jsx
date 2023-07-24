@@ -31,6 +31,8 @@ function Board() {
   };
 
   const handleClick = (i, j) => {
+    const bombCounter = calculateAdjacentBombs(i, j)
+
     const isFlagged = flagged[`${i}-${j}`];
     if (isFlagged) {
       return;
@@ -50,6 +52,8 @@ function Board() {
       setGameStarted(false);
       //   reset
       //   setBoard(generateBoard());
+    } else if (bombCounter === 0) {
+      cascadeReveal(newBoard, i, j);
     } else {
       newBoard[i][j] = calculateAdjacentBombs(i, j);
       setBoard(newBoard);
@@ -58,6 +62,35 @@ function Board() {
     // Use Effect
     if (!gameStarted) {
       setGameStarted(true);
+    }
+  };
+
+  const cascadeReveal = (board, row, col) => {
+    // Check if the cell is out of bounds or already revealed (number or bomb)
+    if (
+      row < 0 ||
+      row >= board.length ||
+      col < 0 ||
+      col >= board[0].length ||
+      typeof board[row][col] === "number" ||
+      board[row][col] === "B_clicked"
+    ) {
+      return;
+    }
+  
+    // Reveal the cell with its adjacent bombs count
+    board[row][col] = calculateAdjacentBombs(row, col);
+  
+    // If the cell is a 0, recursively reveal its neighbors
+    if (board[row][col] === 0) {
+      cascadeReveal(board, row - 1, col - 1);
+      cascadeReveal(board, row - 1, col);
+      cascadeReveal(board, row - 1, col + 1);
+      cascadeReveal(board, row, col - 1);
+      cascadeReveal(board, row, col + 1);
+      cascadeReveal(board, row + 1, col - 1);
+      cascadeReveal(board, row + 1, col);
+      cascadeReveal(board, row + 1, col + 1);
     }
   };
 
