@@ -1,6 +1,7 @@
 // eslint-disable-next-line react/prop-types
 function Cell({ onClick, value, onContextMenu, flagged, i, j }) {
   const isFlagged = flagged[`${i}-${j}`];
+  
   const getClassName = () => {
     return `cell ${
       typeof value === "number" || value === "B_clicked" ? "clicked" : ""
@@ -10,7 +11,9 @@ function Cell({ onClick, value, onContextMenu, flagged, i, j }) {
   const getContent = () => {
     if (isFlagged) return "🚩";
     return typeof value === "number"
-      ? value
+      ? value !== 0 // Check if the value is not 0
+        ? value
+        : "" // If the value is 0, return an empty string
       : value === "B_clicked"
       ? "💣"
       : "";
