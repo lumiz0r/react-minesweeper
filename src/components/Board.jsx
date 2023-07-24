@@ -22,124 +22,126 @@ function Board() {
     return count;
   };
 
+  const cascadeReveal = (board, row, col) => {
+    // Check if the cell is out of bounds or already revealed (number or bomb)
+    if (
+      row < 0 ||
+      row >= board.length ||
+      col < 0 ||
+      col >= board[0].length ||
+      typeof board[row][col] === "number" ||
+      board[row][col] === "B_clicked"
+    ) {
+      return;
+    }
+
+    // Reveal the cell with its adjacent bombs count
+    board[row][col] = calculateAdjacentBombs(row, col);
+
+    // If the cell is a 0, recursively reveal its neighbors
+    if (board[row][col] === 0) {
+      cascadeReveal(board, row - 1, col - 1);
+      cascadeReveal(board, row - 1, col);
+      cascadeReveal(board, row - 1, col + 1);
+      cascadeReveal(board, row, col - 1);
+      cascadeReveal(board, row, col + 1);
+      cascadeReveal(board, row + 1, col - 1);
+      cascadeReveal(board, row + 1, col);
+      cascadeReveal(board, row + 1, col + 1);
+    }
+  };
+
   const resetGame = () => {
     setBoard(generateBoard());
     setGameStarted(false);
     setGameOver(false);
     setFlagged({});
     setReset(true);
+  };
 
-    const cascadeReveal = (board, row, col) => {
-      // Check if the cell is out of bounds or already revealed (number or bomb)
-      if (
-        row < 0 ||
-        row >= board.length ||
-        col < 0 ||
-        col >= board[0].length ||
-        typeof board[row][col] === "number" ||
-        board[row][col] === "B_clicked"
-      ) {
-        return;
-      }
+  const handleClick = (i, j) => {
+    const bombCounter = calculateAdjacentBombs(i, j);
 
-      // Reveal the cell with its adjacent bombs count
-      board[row][col] = calculateAdjacentBombs(row, col);
+    const isFlagged = flagged[`${i}-${j}`];
+    if (isFlagged) {
+      return;
+    }
 
-      // If the cell is a 0, recursively reveal its neighbors
-      if (board[row][col] === 0) {
-        cascadeReveal(board, row - 1, col - 1);
-        cascadeReveal(board, row - 1, col);
-        cascadeReveal(board, row - 1, col + 1);
-        cascadeReveal(board, row, col - 1);
-        cascadeReveal(board, row, col + 1);
-        cascadeReveal(board, row + 1, col - 1);
-        cascadeReveal(board, row + 1, col);
-        cascadeReveal(board, row + 1, col + 1);
-      }
-    };
+    if (gameOver) {
+      return;
+    }
 
-    const handleClick = (i, j) => {
-      const bombCounter = calculateAdjacentBombs(i, j);
+    if (board[(i, j)] === true) {
+      return;
+    }
 
-      const isFlagged = flagged[`${i}-${j}`];
-      if (isFlagged) {
-        return;
-      }
-
-      if (gameOver) {
-        return;
-      }
-
-      if (board[(i, j)] === true) {
-        return;
-      }
-
-      const newBoard = [...board];
-      if (newBoard[i][j] === "B") {
-        revealBombs();
-        setGameStarted(false);
-        //   reset
-        //   setBoard(generateBoard());
-      } else if (bombCounter === 0) {
-        cascadeReveal(newBoard, i, j);
-      } else {
-        newBoard[i][j] = calculateAdjacentBombs(i, j);
-        setBoard(newBoard);
-      }
-
-      // Use Effect
-      if (!gameStarted) {
-        setGameStarted(true);
-      }
-    };
-
-    const handleRightClick = (event, i, j) => {
-      event.preventDefault();
-
-      const isClicked =
-        typeof board[i][j] === "number" || board[i][j] === "B_clicked";
-      if (isClicked) {
-        return; // If the cell is already clicked, return from the function without flagging it
-      }
-
-      setFlagged((prev) => {
-        return {
-          ...prev,
-          [`${i}-${j}`]: !prev[`${i}-${j}`],
-        };
-      });
-    };
-
-    const revealBombs = () => {
-      let newBoard = board.map((row) =>
-        row.map((cell) => (cell === "B" ? "B_clicked" : true))
-      );
+    const newBoard = [...board];
+    if (newBoard[i][j] === "B") {
+      revealBombs();
+      setGameStarted(false);
+      //   reset
+      //   setBoard(generateBoard());
+    } else if (bombCounter === 0) {
+      cascadeReveal(newBoard, i, j);
+    } else {
+      newBoard[i][j] = calculateAdjacentBombs(i, j);
       setBoard(newBoard);
-      setGameOver(true);
+    }
 
-    };
+    // Use Effect
+    if (!gameStarted) {
+      setGameStarted(true);
+    }
+  };
 
-    return (
-      <div className="board">
-        <button onClick={resetGame}><h2>Reset</h2></button>
-        <Timer gameStarted={gameStarted} reset={reset} gameOver={gameOver} />
-        {board.map((row, i) => (
-          <div key={i} className="row">
-            {row.map((isClicked, j) => (
-              <Cell
-                key={`${i}-${j}`}
-                onClick={() => handleClick(i, j)}
-                onContextMenu={(event) => handleRightClick(event, i, j)}
-                value={board[i][j]}
-                flagged={flagged}
-                i={i}
-                j={j}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
+  const handleRightClick = (event, i, j) => {
+    event.preventDefault();
+
+    const isClicked =
+      typeof board[i][j] === "number" || board[i][j] === "B_clicked";
+    if (isClicked) {
+      return; // If the cell is already clicked, return from the function without flagging it
+    }
+
+    setFlagged((prev) => {
+      return {
+        ...prev,
+        [`${i}-${j}`]: !prev[`${i}-${j}`],
+      };
+    });
+  };
+
+  const revealBombs = () => {
+    let newBoard = board.map((row) =>
+      row.map((cell) => (cell === "B" ? "B_clicked" : true))
     );
-  }
+    setBoard(newBoard);
+    setGameOver(true);
+  };
+
+  return (
+    <div className="board">
+      <button onClick={resetGame}>
+        <h2>Reset</h2>
+      </button>
+      <Timer gameStarted={gameStarted} reset={reset} gameOver={gameOver} />
+      {board.map((row, i) => (
+        <div key={i} className="row">
+          {row.map((isClicked, j) => (
+            <Cell
+              key={`${i}-${j}`}
+              onClick={() => handleClick(i, j)}
+              onContextMenu={(event) => handleRightClick(event, i, j)}
+              value={board[i][j]}
+              flagged={flagged}
+              i={i}
+              j={j}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
 }
+
 export default Board;
