@@ -9,6 +9,7 @@ function Board() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [flagged, setFlagged] = useState({});
+  const [reset, setReset] = useState(false);
 
   function generateBoard() {
     let board = Array.from({ length: 10 }, () => Array(10).fill(false));
@@ -28,6 +29,14 @@ function Board() {
       }
     }
     return count;
+  };
+
+  const resetGame = () => {
+    setBoard(generateBoard());
+    setGameStarted(false);
+    setGameOver(false);
+    setFlagged({});
+    setReset(true);
   };
 
   const handleClick = (i, j) => {
@@ -83,11 +92,13 @@ function Board() {
     );
     setBoard(newBoard);
     setGameOver(true);
-  };
 
+  };
+  
   return (
     <div className="board">
-      <Timer gameStarted={gameStarted} />
+      <button onClick={resetGame}><h2>Reset</h2></button>
+      <Timer gameStarted={gameStarted} reset={reset} gameOver={gameOver} />
       {board.map((row, i) => (
         <div key={i} className="row">
           {row.map((isClicked, j) => (
