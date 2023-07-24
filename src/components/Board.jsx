@@ -4,9 +4,9 @@ import Timer from "./Timer";
 
 function Board() {
   const [board, setBoard] = useState(generateBoard());
-
   const [gameStarted, setGameStarted] = useState(false);
-
+  const [gameOver, setGameOver] = useState(false);
+  
   function generateBoard() {
     let board = Array.from({ length: 10 }, () => Array(10).fill(false));
     for (let i = 0; i < 10; i++) {
@@ -28,6 +28,11 @@ function Board() {
   };
   
   const handleClick = (i, j) => {
+    
+    if (gameOver) {
+      return;
+    }
+    
     if (board[(i, j)] === true) {
       return;
     }
@@ -54,7 +59,9 @@ function Board() {
       row.map((cell) => (cell === "B" ? "B_clicked" : true))
     );
     setBoard(newBoard);
+    setGameOver(true);
   };
+  
 
   return (
     <div className="board">
