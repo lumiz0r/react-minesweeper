@@ -64,6 +64,11 @@ function Board() {
   const handleRightClick = (event, i, j) => {
     event.preventDefault();
 
+    const isClicked = typeof board[i][j] === "number" || board[i][j] === "B_clicked";
+    if (isClicked) {
+      return; // If the cell is already clicked, return from the function without flagging it
+    }
+
     setFlagged((prev) => {
       return {
         ...prev,
