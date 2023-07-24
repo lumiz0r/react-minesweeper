@@ -81,5 +81,3 @@ function Board() {
 }
 
 export default Board;
-
-//comentario prueba
