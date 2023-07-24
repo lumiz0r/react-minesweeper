@@ -12,8 +12,6 @@ function Board() {
   const [flagged, setFlagged] = useState({});
   const [reset, setReset] = useState(false);
 
-
-
   const calculateAdjacentBombs = (i, j) => {
     let count = 0;
     for (let x = Math.max(i - 1, 0); x <= Math.min(i + 1, 9); x++) {
@@ -119,12 +117,13 @@ function Board() {
     );
     setBoard(newBoard);
     setGameOver(true);
-
   };
-  
+
   return (
     <div className="board">
-      <button onClick={resetGame}><h2>Reset</h2></button>
+      <button onClick={resetGame}>
+        <h2>Reset</h2>
+      </button>
       <Timer gameStarted={gameStarted} reset={reset} gameOver={gameOver} />
       {board.map((row, i) => (
         <div key={i} className="row">
