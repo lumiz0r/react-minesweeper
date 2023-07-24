@@ -62,7 +62,6 @@ function Board() {
     setGameOver(true);
   };
   
-
   return (
     <div className="board">
       <Timer gameStarted={gameStarted}/>
@@ -82,3 +81,5 @@ function Board() {
 }
 
 export default Board;
+
+//comentario prueba
