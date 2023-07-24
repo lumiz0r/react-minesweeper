@@ -1,25 +1,16 @@
 import { useState } from "react";
 import Cell from "./Cell";
 import Timer from "./Timer";
+import { generateBoard } from "../logic/minesweeperLogic";
 
 const INITIAL_BOMBS = 10;
 
 function Board() {
-  const [board, setBoard] = useState(generateBoard());
+  const [board, setBoard] = useState(generateBoard(INITIAL_BOMBS));
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [flagged, setFlagged] = useState({});
   const [reset, setReset] = useState(false);
-
-  function generateBoard() {
-    let board = Array.from({ length: 10 }, () => Array(10).fill(false));
-    for (let i = 0; i < INITIAL_BOMBS; i++) {
-      let row = Math.floor(Math.random() * 10);
-      let col = Math.floor(Math.random() * 10);
-      board[row][col] = "B";
-    }
-    return board;
-  }
 
   const calculateAdjacentBombs = (i, j) => {
     let count = 0;
@@ -37,9 +28,39 @@ function Board() {
     setGameOver(false);
     setFlagged({});
     setReset(true);
+
+  const cascadeReveal = (board, row, col) => {
+    // Check if the cell is out of bounds or already revealed (number or bomb)
+    if (
+      row < 0 ||
+      row >= board.length ||
+      col < 0 ||
+      col >= board[0].length ||
+      typeof board[row][col] === "number" ||
+      board[row][col] === "B_clicked"
+    ) {
+      return;
+    }
+
+    // Reveal the cell with its adjacent bombs count
+    board[row][col] = calculateAdjacentBombs(row, col);
+
+    // If the cell is a 0, recursively reveal its neighbors
+    if (board[row][col] === 0) {
+      cascadeReveal(board, row - 1, col - 1);
+      cascadeReveal(board, row - 1, col);
+      cascadeReveal(board, row - 1, col + 1);
+      cascadeReveal(board, row, col - 1);
+      cascadeReveal(board, row, col + 1);
+      cascadeReveal(board, row + 1, col - 1);
+      cascadeReveal(board, row + 1, col);
+      cascadeReveal(board, row + 1, col + 1);
+    }
   };
 
   const handleClick = (i, j) => {
+    const bombCounter = calculateAdjacentBombs(i, j);
+
     const isFlagged = flagged[`${i}-${j}`];
     if (isFlagged) {
       return;
@@ -59,6 +80,8 @@ function Board() {
       setGameStarted(false);
       //   reset
       //   setBoard(generateBoard());
+    } else if (bombCounter === 0) {
+      cascadeReveal(newBoard, i, j);
     } else {
       newBoard[i][j] = calculateAdjacentBombs(i, j);
       setBoard(newBoard);
@@ -73,7 +96,8 @@ function Board() {
   const handleRightClick = (event, i, j) => {
     event.preventDefault();
 
-    const isClicked = typeof board[i][j] === "number" || board[i][j] === "B_clicked";
+    const isClicked =
+      typeof board[i][j] === "number" || board[i][j] === "B_clicked";
     if (isClicked) {
       return; // If the cell is already clicked, return from the function without flagging it
     }
@@ -117,5 +141,5 @@ function Board() {
     </div>
   );
 }
-
+}
 export default Board;
