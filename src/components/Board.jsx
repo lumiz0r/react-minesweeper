@@ -10,6 +10,9 @@ function Board() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [flagged, setFlagged] = useState({});
+  const [reset, setReset] = useState(false);
+
+
 
   const calculateAdjacentBombs = (i, j) => {
     let count = 0;
@@ -48,6 +51,14 @@ function Board() {
       cascadeReveal(board, row + 1, col);
       cascadeReveal(board, row + 1, col + 1);
     }
+  };
+
+  const resetGame = () => {
+    setBoard(generateBoard());
+    setGameStarted(false);
+    setGameOver(false);
+    setFlagged({});
+    setReset(true);
   };
 
   const handleClick = (i, j) => {
@@ -108,11 +119,13 @@ function Board() {
     );
     setBoard(newBoard);
     setGameOver(true);
-  };
 
+  };
+  
   return (
     <div className="board">
-      <Timer gameStarted={gameStarted} />
+      <button onClick={resetGame}><h2>Reset</h2></button>
+      <Timer gameStarted={gameStarted} reset={reset} gameOver={gameOver} />
       {board.map((row, i) => (
         <div key={i} className="row">
           {row.map((isClicked, j) => (
