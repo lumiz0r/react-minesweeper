@@ -2,6 +2,8 @@ import { useState } from "react";
 import Cell from "./Cell";
 import Timer from "./Timer";
 
+const INITIAL_BOMBS = 10;
+
 function Board() {
   const [board, setBoard] = useState(generateBoard());
   const [gameStarted, setGameStarted] = useState(false);
@@ -9,7 +11,7 @@ function Board() {
   
   function generateBoard() {
     let board = Array.from({ length: 10 }, () => Array(10).fill(false));
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < INITIAL_BOMBS; i++) {
       let row = Math.floor(Math.random() * 10);
       let col = Math.floor(Math.random() * 10);
       board[row][col] = "B";
