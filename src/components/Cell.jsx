@@ -1,13 +1,21 @@
 // eslint-disable-next-line react/prop-types
 function Cell({ onClick, value }) {
+  const getClassName = () => {
+    return `cell ${typeof value === 'number' || value === 'B_clicked' ? 'clicked' : ''}`;
+  };
+
+  const getContent = () => {
+    return typeof value === 'number' ? value : (value === 'B_clicked' ? '💣' : '');
+  };
+
   return (
     <div 
       onClick={onClick} 
-      className={`cell ${typeof value === 'number' || value === 'B_clicked' ? 'clicked' : ''}`}
+      className={getClassName()}
     >
-      {typeof value === 'number' ? value : (value === 'B_clicked' ? '💣' : '')}
+      {getContent()}
     </div>
   );
 }
 
-export default Cell
+export default Cell;
