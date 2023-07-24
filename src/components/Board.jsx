@@ -8,7 +8,8 @@ function Board() {
   const [board, setBoard] = useState(generateBoard());
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  
+  const [flagged, setFlagged] = useState({});
+
   function generateBoard() {
     let board = Array.from({ length: 10 }, () => Array(10).fill(false));
     for (let i = 0; i < INITIAL_BOMBS; i++) {
@@ -23,18 +24,22 @@ function Board() {
     let count = 0;
     for (let x = Math.max(i - 1, 0); x <= Math.min(i + 1, 9); x++) {
       for (let y = Math.max(j - 1, 0); y <= Math.min(j + 1, 9); y++) {
-        if (board[x][y] === 'B') count++;
+        if (board[x][y] === "B") count++;
       }
     }
     return count;
   };
-  
+
   const handleClick = (i, j) => {
-    
+    const isFlagged = flagged[`${i}-${j}`];
+    if (isFlagged) {
+      return;
+    }
+
     if (gameOver) {
       return;
     }
-    
+
     if (board[(i, j)] === true) {
       return;
     }
@@ -56,6 +61,17 @@ function Board() {
     }
   };
 
+  const handleRightClick = (event, i, j) => {
+    event.preventDefault();
+
+    setFlagged((prev) => {
+      return {
+        ...prev,
+        [`${i}-${j}`]: !prev[`${i}-${j}`],
+      };
+    });
+  };
+
   const revealBombs = () => {
     let newBoard = board.map((row) =>
       row.map((cell) => (cell === "B" ? "B_clicked" : true))
@@ -63,17 +79,21 @@ function Board() {
     setBoard(newBoard);
     setGameOver(true);
   };
-  
+
   return (
     <div className="board">
-      <Timer gameStarted={gameStarted}/>
+      <Timer gameStarted={gameStarted} />
       {board.map((row, i) => (
         <div key={i} className="row">
           {row.map((isClicked, j) => (
             <Cell
               key={`${i}-${j}`}
               onClick={() => handleClick(i, j)}
+              onContextMenu={(event) => handleRightClick(event, i, j)}
               value={board[i][j]}
+              flagged={flagged}
+              i={i}
+              j={j}
             />
           ))}
         </div>
