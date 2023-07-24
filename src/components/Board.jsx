@@ -30,14 +30,15 @@ function Board() {
       col < 0 ||
       col >= board[0].length ||
       typeof board[row][col] === "number" ||
-      board[row][col] === "B_clicked"
+      board[row][col] === "B_clicked" ||
+      board[row][col] === true
     ) {
       return;
     }
-
+  
     // Reveal the cell with its adjacent bombs count
     board[row][col] = calculateAdjacentBombs(row, col);
-
+  
     // If the cell is a 0, recursively reveal its neighbors
     if (board[row][col] === 0) {
       cascadeReveal(board, row - 1, col - 1);
@@ -49,7 +50,11 @@ function Board() {
       cascadeReveal(board, row + 1, col);
       cascadeReveal(board, row + 1, col + 1);
     }
+  
+    // Update the board state
+    setBoard([...board]);
   };
+  
 
   const resetGame = () => {
     setBoard(generateBoard(INITIAL_BOMBS));
@@ -71,9 +76,9 @@ function Board() {
       return;
     }
 
-    if (board[(i, j)] === true) {
+    if (board[i][j] === true) {
       return;
-    }
+    }    
 
     const newBoard = [...board];
     if (newBoard[i][j] === "B") {
