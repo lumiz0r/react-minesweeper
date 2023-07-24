@@ -52,8 +52,6 @@ function Board() {
       setBoard(newBoard);
     }
 
-
-
     // Use Effect
     if (!gameStarted) {
       setGameStarted(true);

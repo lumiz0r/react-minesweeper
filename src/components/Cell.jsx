@@ -10,8 +10,4 @@ function Cell({ onClick, value }) {
   );
 }
 
-
-
-
-
 export default Cell
