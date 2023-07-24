@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // eslint-disable-next-line react/prop-types
-function Timer({ gameStarted, reset, gameOver }) {
+function Timer({ gameStarted, resetCounter, gameOver }) {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
@@ -14,12 +14,10 @@ function Timer({ gameStarted, reset, gameOver }) {
   }, [gameStarted, gameOver]);
 
   useEffect(() => {
-    if (reset) {
-      setTime(0);
-    }
-  }, [reset]);
+    setTime(0);
+  }, [resetCounter]);  
 
   return <div>Time: {time}</div>;
 }
   
-  export default Timer
+export default Timer
