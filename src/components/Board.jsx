@@ -52,7 +52,7 @@ function Board() {
   };
 
   const resetGame = () => {
-    setBoard(generateBoard());
+    setBoard(generateBoard(INITIAL_BOMBS));
     setGameStarted(false);
     setGameOver(false);
     setFlagged({});
