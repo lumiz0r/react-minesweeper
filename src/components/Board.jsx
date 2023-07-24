@@ -1,20 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cell from "./Cell";
+import Timer from "./Timer";
 
 function Board() {
   const [board, setBoard] = useState(generateBoard());
 
   const [gameStarted, setGameStarted] = useState(false);
-  const [time, setTime] = useState(0);
-
-  useEffect(() => {
-    if (gameStarted) {
-      const timer = setInterval(() => {
-        setTime((time) => time + 1);
-      }, 1000);
-      return () => clearInterval(timer);
-    }
-  }, [gameStarted]);
 
   function generateBoard() {
     let board = Array.from({ length: 10 }, () => Array(10).fill(false));
@@ -67,7 +58,7 @@ function Board() {
 
   return (
     <div className="board">
-      <div>Time: {time}</div>
+      <Timer gameStarted={gameStarted}/>
       {board.map((row, i) => (
         <div key={i} className="row">
           {row.map((isClicked, j) => (
