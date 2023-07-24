@@ -119,12 +119,13 @@ function Board() {
     );
     setBoard(newBoard);
     setGameOver(true);
-
   };
-  
+
   return (
     <div className="board">
-      <button onClick={resetGame}><h2>Reset</h2></button>
+      <button onClick={resetGame}>
+        <h2>Reset</h2>
+      </button>
       <Timer gameStarted={gameStarted} reset={reset} gameOver={gameOver} />
       {board.map((row, i) => (
         <div key={i} className="row">
