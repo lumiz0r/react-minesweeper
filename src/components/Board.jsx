@@ -4,7 +4,7 @@ import Timer from "./Timer";
 import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 
-const INITIAL_BOMBS = 2;
+const INITIAL_BOMBS = 15;
 
 function Board() {
   const [board, setBoard] = useState(generateBoard(INITIAL_BOMBS));
@@ -63,27 +63,18 @@ function Board() {
     setGameOver(false);
     setFlagged({});
     setResetCounter((prev) => prev + 1);
-    setGameWon(false)
+    setGameWon(false);
   };
 
   const handleClick = (i, j) => {
-
     const bombCounter = calculateAdjacentBombs(i, j);
-
     const isFlagged = flagged[`${i}-${j}`];
-    if (isFlagged) {
-      return;
-    }
-
-    if (gameOver) {
-      return;
-    }
-
-    if (board[i][j] === true) {
-      return;
-    }
-
     const newBoard = [...board];
+
+    if (isFlagged || gameOver || board[i][j] === true) {
+      return;
+    }
+
     if (checkWin(newBoard)) {
       revealAllBombs();
     }
@@ -98,7 +89,6 @@ function Board() {
       setBoard(newBoard);
     }
 
-    // Use Effect
     if (!gameStarted) {
       setGameStarted(true);
     }
@@ -107,8 +97,8 @@ function Board() {
   const handleRightClick = (event, i, j) => {
     event.preventDefault();
 
-    const isClicked =
-      typeof board[i][j] === "number" || board[i][j] === "B_clicked";
+    const isClicked = typeof board[i][j] === "number" || board[i][j] === "B_clicked";
+
     if (isClicked) {
       return; // If the cell is already clicked, return from the function without flagging it
     }
@@ -131,7 +121,7 @@ function Board() {
 
   const revealAllBombs = () => {
     let newFlaggedState = {};
-    let newBoard = [...board]
+    let newBoard = [...board];
     board.forEach((row, i) => {
       row.forEach((cell, j) => {
         if (cell === "B") {
@@ -139,12 +129,12 @@ function Board() {
         }
       });
     });
-    
+
     setBoard(newBoard);
-    setGameWon(true)
+    setGameWon(true);
     setFlagged(newFlaggedState);
   };
-  
+
   return (
     <div className="board">
       <button onClick={resetGame}>
@@ -157,7 +147,11 @@ function Board() {
         gameWin={gameWon}
       />
       {gameOver && <LoseGame resetGame={resetGame} />}
-      {gameWon && <div className="win-game"><h2>Congratulations, you won!</h2></div>}
+      {gameWon && (
+        <div className="win-game">
+          <h2>Congratulations, you won!</h2>
+        </div>
+      )}
       {board.map((row, i) => (
         <div key={i} className="row">
           {row.map((_, j) => (
