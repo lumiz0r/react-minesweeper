@@ -4,7 +4,7 @@ import Timer from "./Timer";
 import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 
-const INITIAL_BOMBS = 15;
+const INITIAL_BOMBS = 10;
 
 function Board() {
   const [board, setBoard] = useState(generateBoard(INITIAL_BOMBS));

@@ -69,3 +69,11 @@
   width: 150px;
   height: 150px;
 }
+
+.timer {
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
