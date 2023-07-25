@@ -6,7 +6,7 @@ import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 import confetti from "canvas-confetti";
 
-const INITIAL_BOMBS = 2;
+const INITIAL_BOMBS = 15;
 
 function Board() {
   const [board, setBoard] = useState(generateBoard(INITIAL_BOMBS));
