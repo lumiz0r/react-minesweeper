@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Cell from "./Cell";
 import Timer from "./Timer";
-import Flags from './Flags';
+import Flags from "./Flags";
 import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 import confetti from "canvas-confetti";
@@ -94,7 +94,7 @@ function Board() {
     if (checkWin(board)) {
       revealAllBombs();
       setGameWon(true);
-      confetti()
+      confetti();
     }
   };
 
