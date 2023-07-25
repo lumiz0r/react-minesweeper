@@ -3,6 +3,7 @@ import Cell from "./Cell";
 import Timer from "./Timer";
 import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
+import Reset from '../images/Reset.gif';
 
 const INITIAL_BOMBS = 15;
 
@@ -137,7 +138,7 @@ function Board() {
   return (
     <div className="board">
       <button onClick={resetGame}>
-        <h2>Reset</h2>
+        <img src={Reset} className="reset"/>
       </button>
       <Timer
         gameStarted={gameStarted}
