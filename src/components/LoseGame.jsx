@@ -1,6 +1,6 @@
-import React from "react";
 import SadEmoji from '../images/CryEmoji.gif';
 
+// eslint-disable-next-line react/prop-types
 function LoseGame({ resetGame }) {
   return (
     <div className="lose-game">

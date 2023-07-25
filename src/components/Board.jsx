@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Cell from "./Cell";
 import Timer from "./Timer";
-import { generateBoard } from "../logic/minesweeperLogic";
+import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 import Reset from '../images/Reset.gif';
 
-const INITIAL_BOMBS = 10;
+const INITIAL_BOMBS = 15;
 
 function Board() {
   const [board, setBoard] = useState(generateBoard(INITIAL_BOMBS));
@@ -13,6 +13,7 @@ function Board() {
   const [gameOver, setGameOver] = useState(false);
   const [flagged, setFlagged] = useState({});
   const [resetCounter, setResetCounter] = useState(0);
+  const [gameWon, setGameWon] = useState(false);
 
   const calculateAdjacentBombs = (i, j) => {
     let count = 0;
@@ -37,10 +38,10 @@ function Board() {
     ) {
       return;
     }
-  
+
     // Reveal the cell with its adjacent bombs count
     board[row][col] = calculateAdjacentBombs(row, col);
-  
+
     // If the cell is a 0, recursively reveal its neighbors
     if (board[row][col] === 0) {
       cascadeReveal(board, row - 1, col - 1);
@@ -52,11 +53,10 @@ function Board() {
       cascadeReveal(board, row + 1, col);
       cascadeReveal(board, row + 1, col + 1);
     }
-  
+
     // Update the board state
     setBoard([...board]);
   };
-  
 
   const resetGame = () => {
     setBoard(generateBoard(INITIAL_BOMBS));
@@ -64,25 +64,22 @@ function Board() {
     setGameOver(false);
     setFlagged({});
     setResetCounter((prev) => prev + 1);
+    setGameWon(false);
   };
 
   const handleClick = (i, j) => {
     const bombCounter = calculateAdjacentBombs(i, j);
-
     const isFlagged = flagged[`${i}-${j}`];
-    if (isFlagged) {
-      return;
-    }
-
-    if (gameOver) {
-      return;
-    }
-
-    if (board[i][j] === true) {
-      return;
-    }    
-
     const newBoard = [...board];
+
+    if (isFlagged || gameOver || board[i][j] === true) {
+      return;
+    }
+
+    if (checkWin(newBoard)) {
+      revealAllBombs();
+    }
+
     if (newBoard[i][j] === "B") {
       revealBombs();
       setGameStarted(false);
@@ -93,7 +90,6 @@ function Board() {
       setBoard(newBoard);
     }
 
-    // Use Effect
     if (!gameStarted) {
       setGameStarted(true);
     }
@@ -102,8 +98,8 @@ function Board() {
   const handleRightClick = (event, i, j) => {
     event.preventDefault();
 
-    const isClicked =
-      typeof board[i][j] === "number" || board[i][j] === "B_clicked";
+    const isClicked = typeof board[i][j] === "number" || board[i][j] === "B_clicked";
+
     if (isClicked) {
       return; // If the cell is already clicked, return from the function without flagging it
     }
@@ -124,13 +120,39 @@ function Board() {
     setGameOver(true);
   };
 
+  const revealAllBombs = () => {
+    let newFlaggedState = {};
+    let newBoard = [...board];
+    board.forEach((row, i) => {
+      row.forEach((cell, j) => {
+        if (cell === "B") {
+          newFlaggedState[`${i}-${j}`] = true;
+        }
+      });
+    });
+
+    setBoard(newBoard);
+    setGameWon(true);
+    setFlagged(newFlaggedState);
+  };
+
   return (
     <div className="board">
       <button onClick={resetGame}>
         <img src={Reset} className="reset"/>
       </button>
-      <Timer gameStarted={gameStarted} resetCounter={resetCounter} gameOver={gameOver} />
+      <Timer
+        gameStarted={gameStarted}
+        resetCounter={resetCounter}
+        gameOver={gameOver}
+        gameWin={gameWon}
+      />
       {gameOver && <LoseGame resetGame={resetGame} />}
+      {gameWon && (
+        <div className="win-game">
+          <h2>Congratulations, you won!</h2>
+        </div>
+      )}
       {board.map((row, i) => (
         <div key={i} className="row">
           {row.map((_, j) => (

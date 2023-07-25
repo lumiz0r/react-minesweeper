@@ -7,3 +7,15 @@ export function generateBoard(INITIAL_BOMBS) {
     }
     return board;
   }
+
+export const checkWin = (board) => {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        if (board[i][j] !== "B" && typeof board[i][j] !== "number") {
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+  
