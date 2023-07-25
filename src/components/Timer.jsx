@@ -17,7 +17,7 @@ function Timer({ gameStarted, resetCounter, gameOver, gameWon }) {
     setTime(0);
   }, [resetCounter]);  
 
-  return <div>Time: {time}</div>;
+  return <div className="timer">Time: {time}</div>;
 }
   
 export default Timer
