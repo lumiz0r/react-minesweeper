@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 
 // eslint-disable-next-line react/prop-types
-function Timer({ gameStarted, resetCounter, gameOver, gameWin }) {
+function Timer({ gameStarted, resetCounter, gameOver, gameWon }) {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
-    if (gameStarted && !gameOver && !gameWin) {
+    if (gameStarted && !gameOver && !gameWon) {
       const timer = setInterval(() => {
         setTime((time) => time + 1);
       }, 1000);
       return () => clearInterval(timer);
     }
-  }, [gameStarted, gameOver, gameWin]);
+  }, [gameStarted, gameOver, gameWon]);
 
   useEffect(() => {
     setTime(0);

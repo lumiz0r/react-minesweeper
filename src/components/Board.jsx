@@ -72,7 +72,7 @@ function Board() {
     const isFlagged = flagged[`${i}-${j}`];
     const newBoard = [...board];
 
-    if (isFlagged || gameOver || board[i][j] === true) {
+    if (isFlagged || gameOver) {
       return;
     }
 
@@ -137,14 +137,14 @@ function Board() {
 
   return (
     <div className="board">
-      <button onClick={resetGame}>
-        <img src={Reset} className="reset"/>
+      <button className="dark-button" onClick={resetGame}>
+        Reset
       </button>
       <Timer
         gameStarted={gameStarted}
         resetCounter={resetCounter}
         gameOver={gameOver}
-        gameWin={gameWon}
+        gameWon={gameWon}
       />
       {gameOver && <LoseGame resetGame={resetGame} />}
       {gameWon && (
