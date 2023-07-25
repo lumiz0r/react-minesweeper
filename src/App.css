@@ -10,15 +10,15 @@
 }
 
 .cell {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   font-size: 24px;
-  border: 1px solid #000;
-  background-color: #fff;
+  background-color: #aaaaaa99;
   cursor: pointer;
   justify-content: center;
   align-items: center;
   display: flex;
+  border: 10px outset #eeeef1;
 }
 
 .cell.clicked {
