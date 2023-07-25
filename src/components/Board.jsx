@@ -137,8 +137,8 @@ function Board() {
 
   return (
     <div className="board">
-      <button onClick={resetGame}>
-        <img src={Reset} className="reset"/>
+      <button className="dark-button" onClick={resetGame}>
+        Reset
       </button>
       <Timer
         gameStarted={gameStarted}

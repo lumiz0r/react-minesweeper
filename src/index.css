@@ -67,3 +67,36 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Dark button style */
+.dark-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.dark-button:hover {
+  background-color: #555;
+}
+
+.dark-button:focus {
+  outline: none;
+}
+
+/* Optional: Add more styles for different states (e.g., active, disabled) */
+.dark-button:active {
+  background-color: #222;
+}
+
+.dark-button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
