@@ -5,7 +5,7 @@ import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 import Reset from '../images/Reset.gif';
 
-const INITIAL_BOMBS = 15;
+const INITIAL_BOMBS = 10;
 
 function Board() {
   const [board, setBoard] = useState(generateBoard(INITIAL_BOMBS));
