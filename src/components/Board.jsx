@@ -75,10 +75,6 @@ function Board() {
       return;
     }
 
-    if (checkWin(newBoard)) {
-      revealAllBombs();
-    }
-
     if (newBoard[i][j] === "B") {
       revealBombs();
       setGameStarted(false);
@@ -92,12 +88,18 @@ function Board() {
     if (!gameStarted) {
       setGameStarted(true);
     }
+
+    if (checkWin(board)) {
+      revealAllBombs();
+      setGameWon(true);
+    }
   };
 
   const handleRightClick = (event, i, j) => {
     event.preventDefault();
 
-    const isClicked = typeof board[i][j] === "number" || board[i][j] === "B_clicked";
+    const isClicked =
+      typeof board[i][j] === "number" || board[i][j] === "B_clicked";
 
     if (isClicked) {
       return; // If the cell is already clicked, return from the function without flagging it
@@ -121,7 +123,6 @@ function Board() {
 
   const revealAllBombs = () => {
     let newFlaggedState = {};
-    let newBoard = [...board];
     board.forEach((row, i) => {
       row.forEach((cell, j) => {
         if (cell === "B") {
@@ -130,8 +131,6 @@ function Board() {
       });
     });
 
-    setBoard(newBoard);
-    setGameWon(true);
     setFlagged(newFlaggedState);
   };
 
