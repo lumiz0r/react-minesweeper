@@ -2,6 +2,7 @@ import { useState } from "react";
 import Cell from "./Cell";
 import Timer from "./Timer";
 import { generateBoard } from "../logic/minesweeperLogic";
+import LoseGame from "./LoseGame";
 
 const INITIAL_BOMBS = 10;
 
@@ -84,8 +85,6 @@ function Board() {
     if (newBoard[i][j] === "B") {
       revealBombs();
       setGameStarted(false);
-      //   reset
-      //   setBoard(generateBoard());
     } else if (bombCounter === 0) {
       cascadeReveal(newBoard, i, j);
     } else {
@@ -130,9 +129,10 @@ function Board() {
         <h2>Reset</h2>
       </button>
       <Timer gameStarted={gameStarted} resetCounter={resetCounter} gameOver={gameOver} />
+      {gameOver && <LoseGame resetGame={resetGame} />}
       {board.map((row, i) => (
         <div key={i} className="row">
-          {row.map((isClicked, j) => (
+          {row.map((_, j) => (
             <Cell
               key={`${i}-${j}`}
               onClick={() => handleClick(i, j)}
