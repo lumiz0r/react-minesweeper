@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Cell from "./Cell";
 import Timer from "./Timer";
+import Flags from './Flags';
 import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 
@@ -145,6 +146,7 @@ function Board() {
         gameOver={gameOver}
         gameWon={gameWon}
       />
+      <Flags flagged={flagged} initialBombs={INITIAL_BOMBS} />
       {gameOver && <LoseGame resetGame={resetGame} />}
       {gameWon && (
         <div className="win-game">

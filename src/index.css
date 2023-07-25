@@ -100,7 +100,3 @@ button:focus-visible {
   background-color: #666;
   cursor: not-allowed;
 }
-
-.timer {
-  margin-left: 460px;
-}

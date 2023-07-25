@@ -76,4 +76,15 @@
   font-weight: bold;
   color: #ffffff;
   margin-bottom: 20px;
+  margin-left: 430px;
 }
+
+.flags {
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 20px;
+  margin-right: 430px;
+}
+
