@@ -13,7 +13,7 @@
   width: 35px;
   height: 35px;
   font-size: 24px;
-  background-color: #aaaaaa99;
+  background-color: #ccc;
   cursor: pointer;
   justify-content: center;
   align-items: center;
@@ -22,7 +22,9 @@
 }
 
 .cell.clicked {
-  background-color: #ccc;
+  background-color: #aaaaaa99;
+  border: 10px outset #aaaaaad8;
+  cursor: initial;
 }
 
 .board {
