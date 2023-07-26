@@ -7,7 +7,7 @@ import LoseGame from "./LoseGame";
 import WinGame from "./WinGame";
 import confetti from "canvas-confetti";
 
-const INITIAL_BOMBS = 1;
+const INITIAL_BOMBS = 15;
 
 function Board() {
   const [board, setBoard] = useState(generateBoard(INITIAL_BOMBS));
