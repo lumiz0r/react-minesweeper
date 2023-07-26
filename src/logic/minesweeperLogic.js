@@ -3,6 +3,9 @@ export function generateBoard(INITIAL_BOMBS) {
     for (let i = 0; i < INITIAL_BOMBS; i++) {
       let row = Math.floor(Math.random() * 10);
       let col = Math.floor(Math.random() * 10);
+      if (board[row][col] === "B") {
+        i--;
+      }
       board[row][col] = "B";
     }
     return board;

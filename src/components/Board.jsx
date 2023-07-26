@@ -104,7 +104,7 @@ function Board() {
     const isClicked =
       typeof board[i][j] === "number" || board[i][j] === "B_clicked";
 
-    if (isClicked) {
+    if (isClicked || gameOver) {
       return; // If the cell is already clicked, return from the function without flagging it
     }
 
