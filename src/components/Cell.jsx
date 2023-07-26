@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import React from "react";
 // eslint-disable-next-line react/prop-types
 function Cell({ onClick, value, onContextMenu, flagged, i, j }) {
   const isFlagged = flagged[`${i}-${j}`];
