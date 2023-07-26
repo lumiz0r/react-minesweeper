@@ -1,4 +1,5 @@
-import { useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import React,{ useState } from "react";
 import Cell from "./Cell";
 import Timer from "./Timer";
 import Flags from "./Flags";
@@ -6,7 +7,6 @@ import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 import WinGame from "./WinGame";
 import confetti from "canvas-confetti";
-import HelloWorld from "./HelloWorld";
 
 const INITIAL_BOMBS = 15;
 
@@ -142,7 +142,6 @@ function Board() {
   return (
 
     <div className="board">
-          <HelloWorld />
       <button className="dark-button" onClick={resetGame}>
         Reset
       </button>

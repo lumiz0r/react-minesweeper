@@ -6,7 +6,8 @@ module.exports = {
     transformIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.yarn/'],
     moduleFileExtensions: ['js', 'mjs', 'jsx'],
     moduleNameMapper: {
-      uuid: require.resolve('uuid')
+      uuid: require.resolve('uuid'),
+      '\\.(css|less|png|jpg|gif|jpeg|webp)$': 'identity-obj-proxy' 
     },
     collectCoverage: true,
     coveragePathIgnorePatterns: [
