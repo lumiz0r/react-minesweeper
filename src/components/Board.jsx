@@ -4,9 +4,10 @@ import Timer from "./Timer";
 import Flags from "./Flags";
 import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
+import WinGame from "./WinGame";
 import confetti from "canvas-confetti";
 
-const INITIAL_BOMBS = 15;
+const INITIAL_BOMBS = 1;
 
 function Board() {
   const [board, setBoard] = useState(generateBoard(INITIAL_BOMBS));
@@ -150,11 +151,7 @@ function Board() {
       />
       <Flags flagged={flagged} initialBombs={INITIAL_BOMBS} />
       {gameOver && <LoseGame resetGame={resetGame} />}
-      {gameWon && (
-        <div className="win-game">
-          <h2>Congratulations, you won!</h2>
-        </div>
-      )}
+      {gameWon && <WinGame resetGame={resetGame} />}
       {board.map((row, i) => (
         <div key={i} className="row">
           {row.map((_, j) => (
