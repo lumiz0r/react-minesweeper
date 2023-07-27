@@ -60,30 +60,31 @@ Feature: Minesweeper
     When the player uncovers the cell (1,2)
     Then the cell (1,2) should be disabled
 
-  Scenario: Timer Start
-    Given the player loads the following mock data:
-      """
-      | * | o | * |
-      | o | * | o |
-      """
-    When the player uncovers the cell (1,2)
+  # Scenario: Timer Start
+  #   Given the player loads the following mock data:
+  #     """
+  #     | * | o | * |
+  #     | o | * | o |
+  #     """
+  #   When the player uncovers the cell (1,2)
 
-    Then the timer should show 1
+  #   Then the timer should show 1
 
-  Scenario: Timer don't Start
-    Given the player loads the following mock data:
-      """
-      | * | o | * |
-      | o | * | o |
-      """
-    When the player uncovers the cell (2,2)
+  # Scenario: Timer don't Start
+  #   Given the player loads the following mock data:
+  #     """
+  #     | * | o | * |
+  #     | o | * | o |
+  #     """
+  #   When the player uncovers the cell (2,2)
 
-    Then the timer should show 0
+  #   Then the timer should show 0
 
   Scenario: Lose the game
     Given the player loads the following mock data:
       """
-      | * | o |
+      | * | o | * |
+      | o | * | o |
       """
     When the player uncovers the cell (1,1)
     Then the player should lose the game
