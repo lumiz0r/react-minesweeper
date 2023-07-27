@@ -60,25 +60,25 @@ Feature: Minesweeper
     When the player uncovers the cell (1,2)
     Then the cell (1,2) should be disabled
 
-  # Scenario: Timer Start
-  #   Given the player loads the following mock data:
-  #     """
-  #     | * | o | * |
-  #     | o | * | o |
-  #     """
-  #   When the player uncovers the cell (1,2)
+  Scenario: Timer Start
+    Given the player loads the following mock data:
+      """
+      | * | o | * |
+      | o | * | o |
+      """
+    When the player uncovers the cell (1,2)
 
-  #   Then the timer should show 1
+    Then the timer should show 1
 
-  # Scenario: Timer don't Start
-  #   Given the player loads the following mock data:
-  #     """
-  #     | * | o | * |
-  #     | o | * | o |
-  #     """
-  #   When the player uncovers the cell (2,2)
+  Scenario: Timer don't Start
+    Given the player loads the following mock data:
+      """
+      | * | o | * |
+      | o | * | o |
+      """
+    When the player uncovers the cell (2,2)
 
-  #   Then the timer should show 0
+    Then the timer should show 0
 
   Scenario: Lose the game
     Given the player loads the following mock data:
@@ -89,96 +89,96 @@ Feature: Minesweeper
     When the player uncovers the cell (1,1)
     Then the player should lose the game
 
-# Scenario: Lose the game - Showing mine
-#   Given the player loads the following mock data:
-#   """
-#   | * | o |
-#   """
-#   When the player uncovers the cell (1,1)
-#   Then the mine should be shown
+  Scenario: Lose the game - Showing mine
+    Given the player loads the following mock data:
+      """
+      | * | o |
+      """
+    When the player uncovers the cell (1,1)
+    Then the mine should be shown
 
-# Scenario: Lose the game - Show all the mines
-#   Given the player loads the following mock data:
-#   """
-#   | * | o | * |
-#   """
-#   When the player uncovers the cell (1,1)
-#   Then all mines should be revealed
+  # Scenario: Lose the game - Show all the mines
+  #   Given the player loads the following mock data:
+  #   """
+  #   | * | o | * |
+  #   """
+  #   When the player uncovers the cell (1,1)
+  #   Then all mines should be revealed
 
-Scenario: Cell with adjacent mines - 1 mine
-Given the player loads the following mock data:
-"""
-| o | o | * |
-| o | o | o |
-"""
-When the player uncovers the cell (2,2)
-Then the cell (2,2) should show "1"
+  Scenario: Cell with adjacent mines - 1 mine
+    Given the player loads the following mock data:
+      """
+      | o | o | * |
+      | o | o | o |
+      """
+    When the player uncovers the cell (2,2)
+    Then the cell (2,2) should show "1"
 
-Scenario: Cell with adjacent mines - 2 mines
-Given the player loads the following mock data:
-"""
-| * | o | * |
-| o | o | o |
-"""
-When the player uncovers the cell (2,2)
-Then the cell (2,2) should show "2"
+  Scenario: Cell with adjacent mines - 2 mines
+    Given the player loads the following mock data:
+      """
+      | * | o | * |
+      | o | o | o |
+      """
+    When the player uncovers the cell (2,2)
+    Then the cell (2,2) should show "2"
 
-Scenario: Cell with adjacent mines - 3 mines
-Given the player loads the following mock data:
-"""
-| * | * | * |
-| o | o | o |
-"""
-When the player uncovers the cell (2,2)
-Then the cell (2,2) should show "3"
+  Scenario: Cell with adjacent mines - 3 mines
+    Given the player loads the following mock data:
+      """
+      | * | * | * |
+      | o | o | o |
+      """
+    When the player uncovers the cell (2,2)
+    Then the cell (2,2) should show "3"
 
-Scenario: Cell with adjacent mines - 4 mines
-Given the player loads the following mock data:
-"""
-| * | * | * |
-| * | o | o |
-"""
-When the player uncovers the cell (2,2)
-Then the cell (2,2) should show "4"
+  Scenario: Cell with adjacent mines - 4 mines
+    Given the player loads the following mock data:
+      """
+      | * | * | * |
+      | * | o | o |
+      """
+    When the player uncovers the cell (2,2)
+    Then the cell (2,2) should show "4"
 
-Scenario: Cell with adjacent mines - 5 mine
-Given the player loads the following mock data:
-"""
-| * | * | * |
-| * | o | * |
-"""
-When the player uncovers the cell (2,2)
-Then the cell (2,2) should show "5"
+  Scenario: Cell with adjacent mines - 5 mine
+    Given the player loads the following mock data:
+      """
+      | * | * | * |
+      | * | o | * |
+      """
+    When the player uncovers the cell (2,2)
+    Then the cell (2,2) should show "5"
 
-Scenario: Cell with adjacent mines - 6 mines
-Given the player loads the following mock data:
-"""
-| * | * | * |
-| * | o | * |
-| * | o | o |
-"""
-When the player uncovers the cell (2,2)
-Then the cell (2,2) should show "6"
+  Scenario: Cell with adjacent mines - 6 mines
+    Given the player loads the following mock data:
+      """
+      | * | * | * |
+      | * | o | * |
+      | * | o | o |
+      """
+    When the player uncovers the cell (2,2)
+    Then the cell (2,2) should show "6"
 
-Scenario: Cell with adjacent mines - 7 mine
-Given the player loads the following mock data:
-"""
-| * | * | * |
-| * | o | * |
-| * | * | o |
-"""
-When the player uncovers the cell (2,2)
-Then the cell (2,2) should show "7"
+  Scenario: Cell with adjacent mines - 7 mine
+    Given the player loads the following mock data:
+      """
+      | * | * | * |
+      | * | o | * |
+      | * | * | o |
+      """
+    When the player uncovers the cell (2,2)
+    Then the cell (2,2) should show "7"
 
-Scenario: Cell with adjacent mines - 8 mines
-Given the player loads the following mock data:
-"""
-| * | * | * |
-| * | o | * |
-| * | * | * |
-"""
-When the player uncovers the cell (2,2)
-Then the cell (2,2) should show "8"
+  Scenario: Cell with adjacent mines - 8 mines
+    Given the player loads the following mock data:
+      """
+      | * | * | * |
+      | * | o | * |
+      | * | * | * |
+      """
+    When the player uncovers the cell (2,2)
+    Then the cell (2,2) should show "8"
 
 # Scenario: Tagging a cell as mined
 # Given the player loads the following mock data:
