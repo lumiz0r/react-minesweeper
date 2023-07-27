@@ -5,7 +5,7 @@ function Cell({ onClick, value, onContextMenu, flagged, i, j }) {
   const isFlagged = flagged[`${i}-${j}`];
   const row = parseInt(i) + 1;
   const col = parseInt(j) + 1;
-  
+
   const getClassName = () => {
     return `cell ${
       typeof value === "number" || value === "B_clicked" ? "clicked" : ""

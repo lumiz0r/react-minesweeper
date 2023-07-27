@@ -5,8 +5,12 @@ import React from "react";
 function LoseGame({ resetGame }) {
   return (
     <>
-      <h2 className="dark" data-testid="lose-game">Game Over</h2>
-      <button className="reset-button" onClick={resetGame}>Try Again</button>
+      <h2 className="dark" data-testid="lose-game">
+        Game Over
+      </h2>
+      <button className="reset-button" onClick={resetGame}>
+        Try Again
+      </button>
     </>
   );
 }

@@ -183,21 +183,6 @@ Feature: Minesweeper
     When the player uncovers the cell (2,2)
     Then the cell (2,2) should show "8"
 
-  # Scenario: Cascade Effect on Click
-  #   Given the player loads the following mock data:
-  #     """
-  #     | o | o | o |
-  #     | o | o | o |
-  #     | o | * | o |
-  #     """
-  #   When the player uncovers the cell (1,2)
-  #   Then the board should look like this:
-  #     """
-  #     |   |   |   |
-  #     | 1 | 1 | 1 |
-  #     |   | B |   |
-  #     """
-
   Scenario: Tagging a cell as mined
     Given the player loads the following mock data:
       """

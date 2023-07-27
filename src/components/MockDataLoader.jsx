@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-
-function MockDataLoader({ onSubmit, onCancel }) {
+// eslint-disable-next-line no-unused-vars
+import React, { useState } from "react";
+// eslint-disable-next-line react/prop-types
+function MockDataLoader({ onSubmit }) {
   const [mockData, setMockData] = useState("");
 
   const handleSubmit = (event) => {
@@ -20,7 +21,11 @@ function MockDataLoader({ onSubmit, onCancel }) {
         />
       </label>
       <div>
-        <button className="mock-submit" type="submit" data-testid="mockDataLoader-loadButton">
+        <button
+          className="mock-submit"
+          type="submit"
+          data-testid="mockDataLoader-loadButton"
+        >
           Submit
         </button>
       </div>

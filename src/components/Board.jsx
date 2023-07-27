@@ -21,12 +21,12 @@ function Board() {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.ctrlKey && event.key === 'm') {
+      if (event.ctrlKey && event.key === "m") {
         setShowMockDataForm(true);
       }
     };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const calculateAdjacentBombs = (i, j) => {
@@ -53,7 +53,6 @@ function Board() {
       return;
     }
 
-    // Reveal the cell with its adjacent bombs count
     board[row][col] = calculateAdjacentBombs(row, col);
 
     // If the cell is a 0, recursively reveal its neighbors
@@ -94,7 +93,6 @@ function Board() {
         .map((cell) => (cell === "*" ? "B" : false))
     );
 
-    // Update the board state with the new board
     setBoard(newBoard);
     setShowMockDataForm(false);
   };
@@ -135,7 +133,7 @@ function Board() {
       typeof board[i][j] === "number" || board[i][j] === "B_clicked";
 
     if (isClicked || gameOver) {
-      return; // If the cell is already clicked, return from the function without flagging it
+      return;
     }
 
     setFlagged((prev) => {
@@ -169,9 +167,7 @@ function Board() {
 
   return (
     <div className="board" data-testid="board">
-      {showMockDataForm && (
-      <MockDataLoader onSubmit={handleMockDataSubmit} />
-      )}
+      {showMockDataForm && <MockDataLoader onSubmit={handleMockDataSubmit} />}
 
       <button className="dark-button" onClick={resetGame}>
         Reset
@@ -183,7 +179,7 @@ function Board() {
         gameWon={gameWon}
       />
       <Flags flagged={flagged} initialBombs={INITIAL_BOMBS} />
-      {gameOver && <LoseGame resetGame={resetGame}/>}
+      {gameOver && <LoseGame resetGame={resetGame} />}
       {gameWon && <WinGame resetGame={resetGame} />}
       {board.map((row, i) => (
         <div key={i} className="row">

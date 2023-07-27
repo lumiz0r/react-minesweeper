@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // eslint-disable-next-line react/prop-types
 function Timer({ gameStarted, resetCounter, gameOver, gameWon }) {
@@ -16,9 +16,13 @@ function Timer({ gameStarted, resetCounter, gameOver, gameWon }) {
 
   useEffect(() => {
     setTime(0);
-  }, [resetCounter]);  
+  }, [resetCounter]);
 
-  return <div data-testid="timer" className="timer dark">Time: {time}</div>;
+  return (
+    <div data-testid="timer" className="timer dark">
+      Time: {time}
+    </div>
+  );
 }
-  
-export default Timer
+
+export default Timer;
