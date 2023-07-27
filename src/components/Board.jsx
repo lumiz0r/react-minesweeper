@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cell from "./Cell";
 import Timer from "./Timer";
 import Flags from "./Flags";
@@ -7,8 +7,7 @@ import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 import WinGame from "./WinGame";
 import confetti from "canvas-confetti";
-import MockDataLoader from './MockDataLoader';
-
+import MockDataLoader from "./MockDataLoader";
 
 const INITIAL_BOMBS = 15;
 
@@ -19,17 +18,27 @@ function Board() {
   const [flagged, setFlagged] = useState({});
   const [resetCounter, setResetCounter] = useState(0);
   const [gameWon, setGameWon] = useState(false);
+  const [showMockDataForm, setShowMockDataForm] = useState(false); // New state hook
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.ctrlKey && event.key === 'm') {
+        setShowMockDataForm(true);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const calculateAdjacentBombs = (i, j) => {
     let count = 0;
     for (let x = Math.max(i - 1, 0); x <= Math.min(i + 1, 9); x++) {
       for (let y = Math.max(j - 1, 0); y <= Math.min(j + 1, 9); y++) {
-        if (board[x] && board[x][y] === 'B') count++;
+        if (board[x] && board[x][y] === "B") count++;
       }
     }
     return count;
   };
-  
 
   const cascadeReveal = (board, row, col) => {
     // Check if the cell is out of bounds or already revealed (number or bomb)
@@ -75,21 +84,22 @@ function Board() {
 
   const handleMockDataSubmit = (mockData) => {
     // Split the mock data into rows
-    const rows = mockData.split('\n');
-  
+    const rows = mockData.split("\n");
+
     // Map the rows to a new board state
     const newBoard = rows.map((row) =>
       row
         .split(/[-|]/)
         .map((cell) => cell.trim())
         .filter((cell) => cell)
-        .map((cell) => (cell === '*' ? 'B' : false))
+        .map((cell) => (cell === "*" ? "B" : false))
     );
-  
+
     // Update the board state with the new board
     setBoard(newBoard);
-  };  
-  
+    setShowMockDataForm(false);
+  };
+
   const handleClick = (i, j) => {
     const bombCounter = calculateAdjacentBombs(i, j);
     const isFlagged = flagged[`${i}-${j}`];
@@ -160,8 +170,11 @@ function Board() {
   };
 
   return (
-    <div className="board">
+    <div className="board" data-testid="board">
+      {showMockDataForm && (
       <MockDataLoader onSubmit={handleMockDataSubmit} />
+      )}
+
       <button className="dark-button" onClick={resetGame}>
         Reset
       </button>

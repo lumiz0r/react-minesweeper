@@ -23,6 +23,7 @@ function Cell({ onClick, value, onContextMenu, flagged, i, j }) {
 
   return (
     <div
+      data-testid={`cell-${i}-${j}`}
       onClick={onClick}
       className={getClassName()}
       onContextMenu={onContextMenu}

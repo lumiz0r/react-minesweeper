@@ -48,23 +48,27 @@ Feature: Minesweeper
   Scenario: Starting game - All the cells should be enabled
     Then all the cells should be enabled
 
-# Scenario: Pump Marker Counter
-#   Then the counter should start with 10
+  Scenario: Flag Marker Counter
+    Then the counter should start with 15
 
-# Scenario: Uncovering a cell - Disabling the cell
-#   Given the player loads the following mock data:
-#   """
-#   | * | o |
-#   """
-#   When the player uncovers the cell (1,2)
-#   Then the cell (1,2) should be disabled
+  Scenario: Uncovering a cell - Disabling the cell
+    Given the player loads the following mock data:
+      """
+      | * | o | * |
+      | o | * | o |
+      """
+    When the player uncovers the cell (1,2)
+    Then the cell (1,2) should be disabled
 
-# Scenario: Timer Start
-#   When the player on click cell (1,2) and if the cell (1,2) don't have bomb
-#   """
-#   | * | o |
-#   """
-#   Then the timer should start
+  Scenario: Timer Start
+      Given the player loads the following mock data:
+      """
+      | * | o | * |
+      | o | * | o |
+      """
+    When the player uncovers the cell (1,2)
+
+    Then the timer should show 1
 
 # Scenario: Timer don't Start
 #   When the player on click cell (1,2) and if the cell (1,2) have bomb
@@ -72,10 +76,6 @@ Feature: Minesweeper
 #   | * | o |
 #   """
 #   Then the timer shouldn't start
-
-# Scenario: Timer limit
-#   When the timer show < 999
-#   Then the display timer show infinite image
 
 # Scenario: Lose the game
 #   Given the player loads the following mock data:
@@ -85,13 +85,13 @@ Feature: Minesweeper
 #   When the player uncovers the cell (1,1)
 #   Then the player should lose the game
 
-# Scenario: Lose the game - Highlighted mine
+# Scenario: Lose the game - Showing mine
 #   Given the player loads the following mock data:
 #   """
 #   | * | o |
 #   """
 #   When the player uncovers the cell (1,1)
-#   Then the mine should be highlighted
+#   Then the mine should be shown
 
 # Scenario: Lose the game - Show all the mines
 #   Given the player loads the following mock data:
@@ -100,9 +100,6 @@ Feature: Minesweeper
 #   """
 #   When the player uncovers the cell (1,1)
 #   Then all mines should be revealed
-
-# Scenario: Empty cell
-#   When the player
 
 # Scenario: Cell with adjacent mines - 1 mine
 # Given the player loads the following mock data:
@@ -185,15 +182,7 @@ Feature: Minesweeper
 # | * | o |
 # """
 # When the player tags the cell (1,1) as mined
-# Then the cell (1,1) should be marked as "!"
-
-# Scenario: Tagging a cell as inconclusive
-# Given the player loads the following mock data:
-# """
-# | * | o |
-# """
-# When the player tags the cell (1,2) as inconclusive
-# Then the cell (1,2) should be marked as "?"
+# Then the cell (1,1) should be marked as "🚩"
 
 # Scenario: Winning the game
 # Given the player loads the following mock data:
