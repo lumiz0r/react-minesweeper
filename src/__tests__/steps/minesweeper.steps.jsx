@@ -1,9 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import  Board  from "../../components/Board";
+import Board from "../../components/Board";
+import Flags from "../../components/Flags"; 
 import "@testing-library/jest-dom/extend-expect";
-
-
 
 const minesweeperSteps = ({
   given: Given,
@@ -12,32 +11,38 @@ const minesweeperSteps = ({
   then: Then,
 }) => {
   let boardComponent;
+  let flagged;
 
-  Given('the player opens the game', () => {
+  Given("the player opens the game", () => {
     boardComponent = render(<Board />);
   });
 
-  Then('all the cells should be covered', () => {
-    const cells = boardComponent.container.querySelectorAll('.cell');
+  Then("all the cells should be covered", () => {
+    const cells = boardComponent.container.querySelectorAll(".cell");
     cells.forEach((cell) => {
-      expect(cell).not.toHaveAttribute('cell.clicked');
+      expect(cell).not.toHaveAttribute("cell.clicked");
     });
   });
 
-  Then('all the cells should be enabled', () => {
-    const cells = boardComponent.container.querySelectorAll('.cell');
+  Then("all the cells should be enabled", () => {
+    const cells = boardComponent.container.querySelectorAll(".cell");
     cells.forEach((cell) => {
       expect(cell).toBeEnabled();
     });
   });
 
-  // Add more steps as needed
+  Then("the counter should start with {int}", (expectedInitialBombs) => {
+
+    expectedInitialBombs = 15; // Set the expected number of initial bombs
+  
+    const flagsElement = screen.getByText(/Flags: \d+/); // Use a regular expression to match the pattern "Flags: 15"
+  
+    expect(flagsElement).toHaveTextContent(`Flags: ${expectedInitialBombs}`);
+  });
 
 };
 
 export default minesweeperSteps;
-
-
 
 // export const loadMockData = (mockData) => {
 //   userEvent.keyboard('{ctrl}m')

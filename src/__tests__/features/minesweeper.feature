@@ -48,8 +48,8 @@ Feature: Minesweeper
   Scenario: Starting game - All the cells should be enabled
     Then all the cells should be enabled
 
-# Scenario: Pump Marker Counter
-#   Then the counter should start with 10
+  Scenario: Flag Marker Counter
+    Then the counter should start with {int}
 
 # Scenario: Uncovering a cell - Disabling the cell
 #   Given the player loads the following mock data:
