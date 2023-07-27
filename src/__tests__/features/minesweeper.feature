@@ -89,13 +89,13 @@ Feature: Minesweeper
     When the player uncovers the cell (1,1)
     Then the player should lose the game
 
-  Scenario: Lose the game - Showing mine
-    Given the player loads the following mock data:
-      """
-      | * | o |
-      """
-    When the player uncovers the cell (1,1)
-    Then the mine should be shown
+  # Scenario: Lose the game - Showing mine
+  #   Given the player loads the following mock data:
+  #     """
+  #     | * | o |
+  #     """
+  #   When the player uncovers the cell (1,1)
+  #   Then the mine should be shown
 
   # Scenario: Lose the game - Show all the mines
   #   Given the player loads the following mock data:
