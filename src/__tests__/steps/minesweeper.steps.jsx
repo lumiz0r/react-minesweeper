@@ -1,15 +1,8 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Board from "../../components/Board";
-import Timer from "../../components/Timer";
 import "@testing-library/jest-dom/extend-expect";
 
 const loadMockData = async (mockData) => {
@@ -17,14 +10,10 @@ const loadMockData = async (mockData) => {
   const textarea = screen.getByTestId("mockDataLoader-textarea");
   const submitButton = screen.getByTestId("mockDataLoader-loadButton");
 
-  // Simulate typing the mock data into the textarea
   fireEvent.change(textarea, { target: { value: mockData } });
 
-  // Click the submit button to submit the form
   fireEvent.click(submitButton);
 
-  // Since the submission might involve asynchronous behavior (setState in MockDataLoader),
-  // we need to wait for it to complete before continuing the test
   await waitFor(() => expect(textarea.value).toBe(mockData));
 };
 
@@ -36,12 +25,7 @@ const leftClickOnCell = async (row, col) => {
   });
 };
 
-const minesweeperSteps = ({
-  given: Given,
-  and: And,
-  when: When,
-  then: Then,
-}) => {
+const minesweeperSteps = ({ given: Given, when: When, then: Then }) => {
   let boardComponent;
 
   Given("the player opens the game", () => {
@@ -54,6 +38,11 @@ const minesweeperSteps = ({
 
   When(/^the player uncovers the cell \((\d+),(\d+)\)$/, (row, col) => {
     leftClickOnCell(row, col);
+  });
+
+  When(/^the player tags the cell \((\d+),(\d+)\) as mined$/, (row, col) => {
+    const cell = screen.getByTestId("cell-" + row + "-" + col);
+    fireEvent.contextMenu(cell);
   });
 
   Then("all the cells should be covered", () => {
@@ -71,21 +60,20 @@ const minesweeperSteps = ({
   });
 
   Then(/^the counter should start with (\d+)$/, (expectedInitialBombs) => {
-    const flagsElement = screen.getByText(/Flags: \d+/); // Use a regular expression to match the pattern "Flags: 15"
+    const flagsElement = screen.getByText(/Flags: \d+/);
 
     expect(flagsElement).toHaveTextContent(`Flags: ${expectedInitialBombs}`);
   });
 
   Then(/^the cell \((\d+),(\d+)\) should be disabled$/, (row, col) => {
-    const cell12 = screen.getByTestId("cell-" + row + "-" + col); // Replace "cell-1-2" with the correct test ID for the cell
+    const cell = screen.getByTestId("cell-" + row + "-" + col);
 
-    expect(cell12).toHaveClass("cell clicked"); // Check if the cell has the "clicked" class
+    expect(cell).toHaveClass("cell clicked");
   });
 
   Then(/^the timer should show (\d+)$/, (expectedTime) => {
-    // Wait for the timer to start counting by checking the timer element content
-    const timerElement = screen.queryByTestId("timer"); // Use a regular expression to match the pattern "Time: 1" or any other number
-    // Wait for the expectedTime to appear in the timer element content
+    const timerElement = screen.queryByTestId("timer");
+
     waitFor(() => {
       const timeText = timerElement.textContent;
       const currentTime = parseInt(timeText.replace("Time: ", ""));
@@ -94,13 +82,17 @@ const minesweeperSteps = ({
   });
 
   Then("the player should lose the game", () => {
-    // Check if the "LoseGame" component is present in the DOM
     const loseGameElement = screen.getByTestId("lose-game");
     expect(loseGameElement).toBeInTheDocument();
   });
-  
+
+  Then("the player should win the game", () => {
+    const winGameElement = screen.getByTestId("win-game");
+    expect(winGameElement).toBeInTheDocument();
+  });
+
   Then(
-    /^the cell \((\d+),(\d+)\) should show "(\d+)"$/,
+    /^the cell \((\d+),(\d+)\) should show "(.*)"$/,
     (row, col, expectedNumber) => {
       const cell = screen.getByTestId(`cell-${row}-${col}`);
       expect(cell).toHaveTextContent(expectedNumber);
@@ -109,7 +101,3 @@ const minesweeperSteps = ({
 };
 
 export default minesweeperSteps;
-
-// export const righClickOnCell = (row, col) => {
-//   fireEvent.contextMenu(screen.getByTestId('cell-row' + row + '-col' + col))
-// }

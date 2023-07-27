@@ -6,7 +6,6 @@ import Flags from "./Flags";
 import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 import WinGame from "./WinGame";
-import confetti from "canvas-confetti";
 import MockDataLoader from "./MockDataLoader";
 
 const INITIAL_BOMBS = 15;
@@ -126,7 +125,6 @@ function Board() {
     if (checkWin(board)) {
       revealAllBombs();
       setGameWon(true);
-      // confetti();
     }
   };
 

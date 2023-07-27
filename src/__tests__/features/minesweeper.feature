@@ -89,21 +89,24 @@ Feature: Minesweeper
     When the player uncovers the cell (1,1)
     Then the player should lose the game
 
-  # Scenario: Lose the game - Showing mine
-  #   Given the player loads the following mock data:
-  #     """
-  #     | * | o |
-  #     """
-  #   When the player uncovers the cell (1,1)
-  #   Then the mine should be shown
+  Scenario: Lose the game - Showing mine
+    Given the player loads the following mock data:
+      """
+      | * | o | * |
+      | o | * | o |
+      """
+    When the player uncovers the cell (1,1)
+    Then the cell (1,1) should show "💣"
 
-  # Scenario: Lose the game - Show all the mines
-  #   Given the player loads the following mock data:
-  #   """
-  #   | * | o | * |
-  #   """
-  #   When the player uncovers the cell (1,1)
-  #   Then all mines should be revealed
+  Scenario: Lose the game - Show all the mines
+    Given the player loads the following mock data:
+      """
+      | * | o | * |
+      """
+    When the player uncovers the cell (1,1)
+    When the player uncovers the cell (1,3)
+    Then the cell (1,1) should show "💣"
+    Then the cell (1,1) should show "💣"
 
   Scenario: Cell with adjacent mines - 1 mine
     Given the player loads the following mock data:
@@ -153,9 +156,9 @@ Feature: Minesweeper
   Scenario: Cell with adjacent mines - 6 mines
     Given the player loads the following mock data:
       """
-      | * | * | * |
+      | o | * | o |
       | * | o | * |
-      | * | o | o |
+      | * | * | * |
       """
     When the player uncovers the cell (2,2)
     Then the cell (2,2) should show "6"
@@ -164,8 +167,8 @@ Feature: Minesweeper
     Given the player loads the following mock data:
       """
       | * | * | * |
-      | * | o | * |
-      | * | * | o |
+      | o | o | * |
+      | * | * | * |
       """
     When the player uncovers the cell (2,2)
     Then the cell (2,2) should show "7"
@@ -180,18 +183,37 @@ Feature: Minesweeper
     When the player uncovers the cell (2,2)
     Then the cell (2,2) should show "8"
 
-# Scenario: Tagging a cell as mined
-# Given the player loads the following mock data:
-# """
-# | * | o |
-# """
-# When the player tags the cell (1,1) as mined
-# Then the cell (1,1) should be marked as "🚩"
+  # Scenario: Cascade Effect on Click
+  #   Given the player loads the following mock data:
+  #     """
+  #     | o | o | o |
+  #     | o | o | o |
+  #     | o | * | o |
+  #     """
+  #   When the player uncovers the cell (1,2)
+  #   Then the board should look like this:
+  #     """
+  #     |   |   |   |
+  #     | 1 | 1 | 1 |
+  #     |   | B |   |
+  #     """
 
-# Scenario: Winning the game
-# Given the player loads the following mock data:
-# """
-# | * | o |
-# """
-# When the player uncovers the cell (1,2)
-# Then the player wins the game
+  Scenario: Tagging a cell as mined
+    Given the player loads the following mock data:
+      """
+      | * | o | * |
+      | o | * | o |
+      """
+    When the player tags the cell (1,1) as mined
+    Then the cell (1,1) should show "🚩"
+
+  Scenario: Winning the game
+    Given the player loads the following mock data:
+      """
+      | * | o | * |
+      | o | * | o |
+      """
+    When the player uncovers the cell (1,2)
+    When the player uncovers the cell (2,1)
+    When the player uncovers the cell (2,3)
+    Then the player should win the game

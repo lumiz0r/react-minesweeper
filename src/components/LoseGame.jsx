@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import SadEmoji from '../images/CryEmoji.gif';
 
 // eslint-disable-next-line react/prop-types
 function LoseGame({ resetGame }) {
