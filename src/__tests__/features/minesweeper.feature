@@ -54,18 +54,21 @@ Feature: Minesweeper
   Scenario: Uncovering a cell - Disabling the cell
     Given the player loads the following mock data:
       """
-      | * | o | * | 
+      | * | o | * |
       | o | * | o |
       """
     When the player uncovers the cell (1,2)
     Then the cell (1,2) should be disabled
 
-# Scenario: Timer Start
-#   When the player on click cell (1,2) and if the cell (1,2) don't have bomb
-#   """
-#   | * | o |
-#   """
-#   Then the timer should start
+  Scenario: Timer Start
+      Given the player loads the following mock data:
+      """
+      | * | o | * |
+      | o | * | o |
+      """
+    When the player uncovers the cell (1,2)
+
+    Then the timer should show 1
 
 # Scenario: Timer don't Start
 #   When the player on click cell (1,2) and if the cell (1,2) have bomb
@@ -82,13 +85,13 @@ Feature: Minesweeper
 #   When the player uncovers the cell (1,1)
 #   Then the player should lose the game
 
-# Scenario: Lose the game - Highlighted mine
+# Scenario: Lose the game - Showing mine
 #   Given the player loads the following mock data:
 #   """
 #   | * | o |
 #   """
 #   When the player uncovers the cell (1,1)
-#   Then the mine should be highlighted
+#   Then the mine should be shown
 
 # Scenario: Lose the game - Show all the mines
 #   Given the player loads the following mock data:
@@ -97,9 +100,6 @@ Feature: Minesweeper
 #   """
 #   When the player uncovers the cell (1,1)
 #   Then all mines should be revealed
-
-# Scenario: Empty cell
-#   When the player
 
 # Scenario: Cell with adjacent mines - 1 mine
 # Given the player loads the following mock data:
