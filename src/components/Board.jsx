@@ -185,7 +185,7 @@ function Board() {
         gameWon={gameWon}
       />
       <Flags flagged={flagged} initialBombs={INITIAL_BOMBS} />
-      {gameOver && <LoseGame resetGame={resetGame} />}
+      {gameOver && <LoseGame resetGame={resetGame}/>}
       {gameWon && <WinGame resetGame={resetGame} />}
       {board.map((row, i) => (
         <div key={i} className="row">

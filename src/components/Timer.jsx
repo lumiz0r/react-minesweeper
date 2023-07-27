@@ -18,7 +18,7 @@ function Timer({ gameStarted, resetCounter, gameOver, gameWon }) {
     setTime(0);
   }, [resetCounter]);  
 
-  return <div className="timer dark">Time: {time}</div>;
+  return <div data-testid="timer" className="timer dark">Time: {time}</div>;
 }
   
 export default Timer

@@ -61,7 +61,7 @@ Feature: Minesweeper
     Then the cell (1,2) should be disabled
 
   Scenario: Timer Start
-      Given the player loads the following mock data:
+    Given the player loads the following mock data:
       """
       | * | o | * |
       | o | * | o |
@@ -70,20 +70,23 @@ Feature: Minesweeper
 
     Then the timer should show 1
 
-# Scenario: Timer don't Start
-#   When the player on click cell (1,2) and if the cell (1,2) have bomb
-#   """
-#   | * | o |
-#   """
-#   Then the timer shouldn't start
+  Scenario: Timer don't Start
+    Given the player loads the following mock data:
+      """
+      | * | o | * |
+      | o | * | o |
+      """
+    When the player uncovers the cell (2,2)
 
-# Scenario: Lose the game
-#   Given the player loads the following mock data:
-#   """
-#   | * | o |
-#   """
-#   When the player uncovers the cell (1,1)
-#   Then the player should lose the game
+    Then the timer should show 0
+
+  Scenario: Lose the game
+    Given the player loads the following mock data:
+      """
+      | * | o |
+      """
+    When the player uncovers the cell (1,1)
+    Then the player should lose the game
 
 # Scenario: Lose the game - Showing mine
 #   Given the player loads the following mock data:

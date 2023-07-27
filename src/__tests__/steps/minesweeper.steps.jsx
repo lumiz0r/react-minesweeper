@@ -3,6 +3,7 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Board from "../../components/Board";
+import Timer from "../../components/Timer";
 import "@testing-library/jest-dom/extend-expect";
 
 const loadMockData = async (mockData) => {
@@ -24,7 +25,9 @@ const loadMockData = async (mockData) => {
 const leftClickOnCell = async (row, col) => {
   const cell = screen.getByTestId("cell-" + row + "-" + col);
 
-  fireEvent.click(cell);
+  await waitFor(() => {
+    fireEvent.click(cell);
+  });
 };
 
 const minesweeperSteps = ({
@@ -74,15 +77,15 @@ const minesweeperSteps = ({
   });
 
   Then(/^the timer should show (\d+)$/, (expectedTime) => {
-    // Wait for the timer to start counting by checking the timer element content
-    const timerElement = screen.getByText(/Time: \d+/); // Use a regular expression to match the pattern "Time: 1" or any other number
-
+  // Wait for the timer to start counting by checking the timer element content
+  const timerElement = screen.queryByTestId("timer"); // Use a regular expression to match the pattern "Time: 1" or any other number
     // Wait for the expectedTime to appear in the timer element content
     waitFor(() => {
       const timeText = timerElement.textContent;
       const currentTime = parseInt(timeText.replace("Time: ", ""));
       expect(currentTime).toBe(expectedTime);
     });
+
   });
 };
 
