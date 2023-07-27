@@ -1,8 +1,15 @@
+/* eslint-disable no-undef */
+// eslint-disable-next-line no-unused-vars
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor
+} from "@testing-library/react";
 import Board from "../../components/Board";
-import Flags from "../../components/Flags"; 
 import "@testing-library/jest-dom/extend-expect";
+
 
 const minesweeperSteps = ({
   given: Given,
@@ -11,10 +18,17 @@ const minesweeperSteps = ({
   then: Then,
 }) => {
   let boardComponent;
-  let flagged;
 
   Given("the player opens the game", () => {
     boardComponent = render(<Board />);
+  });
+
+  Given("the player loads the following mock data:", async (mockData) => {
+    await loadMockData(mockData);
+  });
+
+  When(/^the player uncovers the cell \((\d+),(\d+)\)$/, (row, col) => {
+    leftClickOnCell(row, col);
   });
 
   Then("all the cells should be covered", () => {
@@ -31,31 +45,43 @@ const minesweeperSteps = ({
     });
   });
 
-  Then("the counter should start with {int}", (expectedInitialBombs) => {
-
-    expectedInitialBombs = 15; // Set the expected number of initial bombs
-  
+  Then(/^the counter should start with (\d+)$/, (expectedInitialBombs) => {
     const flagsElement = screen.getByText(/Flags: \d+/); // Use a regular expression to match the pattern "Flags: 15"
-  
+
     expect(flagsElement).toHaveTextContent(`Flags: ${expectedInitialBombs}`);
   });
 
+  Then(/^the cell \((\d+),(\d+)\) should be disabled$/, (row, col) => {
+    const cell12 = screen.getByTestId("cell-"+row+"-"+ col); // Replace "cell-1-2" with the correct test ID for the cell
+
+    expect(cell12).toHaveClass("cell clicked"); // Check if the cell has the "clicked" class
+  });
+};
+
+const loadMockData = async (mockData) => {
+  fireEvent.keyDown(document, { key: 'm', ctrlKey: true });
+  const textarea = screen.getByTestId("mockDataLoader-textarea");
+  const submitButton = screen.getByTestId("mockDataLoader-loadButton");
+
+  // Simulate typing the mock data into the textarea
+  fireEvent.change(textarea, { target: { value: mockData } });
+
+  // Click the submit button to submit the form
+  fireEvent.click(submitButton);
+
+  // Since the submission might involve asynchronous behavior (setState in MockDataLoader),
+  // we need to wait for it to complete before continuing the test
+  await waitFor(() => expect(textarea.value).toBe(mockData));
+};
+
+
+ const leftClickOnCell = async (row, col) => {
+  const cell = screen.getByTestId("cell-"+row+"-"+ col)
+  
+  fireEvent.click(cell)
 };
 
 export default minesweeperSteps;
-
-// export const loadMockData = (mockData) => {
-//   userEvent.keyboard('{ctrl}m')
-//   const text = screen.getByTestId('mockDataLoader-textarea')
-//   const button = screen.getByTestId('mockDataLoader-loadButton')
-//   userEvent.clear(text)
-//   userEvent.type(text, mockData)
-//   userEvent.click(button)
-// }
-
-// export const leftClickOnCell = (row, col) => {
-//   userEvent.click(screen.getByTestId('cell-row' + row + '-col' + col))
-// }
 
 // export const righClickOnCell = (row, col) => {
 //   fireEvent.contextMenu(screen.getByTestId('cell-row' + row + '-col' + col))

@@ -49,15 +49,16 @@ Feature: Minesweeper
     Then all the cells should be enabled
 
   Scenario: Flag Marker Counter
-    Then the counter should start with {int}
+    Then the counter should start with 15
 
-# Scenario: Uncovering a cell - Disabling the cell
-#   Given the player loads the following mock data:
-#   """
-#   | * | o |
-#   """
-#   When the player uncovers the cell (1,2)
-#   Then the cell (1,2) should be disabled
+  Scenario: Uncovering a cell - Disabling the cell
+    Given the player loads the following mock data:
+      """
+      | * | o | * | 
+      | o | * | o |
+      """
+    When the player uncovers the cell (1,2)
+    Then the cell (1,2) should be disabled
 
 # Scenario: Timer Start
 #   When the player on click cell (1,2) and if the cell (1,2) don't have bomb
