@@ -7,7 +7,7 @@ function MockDataLoader({ onSubmit }) {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.ctrlKey && event.key === 'm') {
-        setShowForm(true);
+        setShowForm((showForm) => !showForm);
       }
     };
     document.addEventListener('keydown', handleKeyDown);
