@@ -73,10 +73,6 @@ Feature: Minesweeper
 #   """
 #   Then the timer shouldn't start
 
-# Scenario: Timer limit
-#   When the timer show < 999
-#   Then the display timer show infinite image
-
 # Scenario: Lose the game
 #   Given the player loads the following mock data:
 #   """
@@ -185,15 +181,7 @@ Feature: Minesweeper
 # | * | o |
 # """
 # When the player tags the cell (1,1) as mined
-# Then the cell (1,1) should be marked as "!"
-
-# Scenario: Tagging a cell as inconclusive
-# Given the player loads the following mock data:
-# """
-# | * | o |
-# """
-# When the player tags the cell (1,2) as inconclusive
-# Then the cell (1,2) should be marked as "?"
+# Then the cell (1,1) should be marked as "🚩"
 
 # Scenario: Winning the game
 # Given the player loads the following mock data:
