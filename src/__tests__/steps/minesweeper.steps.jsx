@@ -87,6 +87,12 @@ const minesweeperSteps = ({
     });
 
   });
+
+  Then(/^the cell \((\d+),(\d+)\) should show "(\d+)"$/, (row, col, expectedNumber) => {
+    const cell = screen.getByTestId(`cell-${row}-${col}`);
+    expect(cell).toHaveTextContent(expectedNumber);
+  });
+  
 };
 
 export default minesweeperSteps;

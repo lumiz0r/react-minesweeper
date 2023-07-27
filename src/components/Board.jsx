@@ -126,7 +126,7 @@ function Board() {
     if (checkWin(board)) {
       revealAllBombs();
       setGameWon(true);
-      confetti();
+      // confetti();
     }
   };
 
@@ -185,8 +185,8 @@ function Board() {
         gameWon={gameWon}
       />
       <Flags flagged={flagged} initialBombs={INITIAL_BOMBS} />
-      {gameOver && <LoseGame resetGame={resetGame}/>}
-      {gameWon && <WinGame resetGame={resetGame} />}
+      {/* {gameOver && <LoseGame resetGame={resetGame}/>}
+      {gameWon && <WinGame resetGame={resetGame} />} */}
       {board.map((row, i) => (
         <div key={i} className="row">
           {row.map((_, j) => (
