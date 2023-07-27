@@ -90,7 +90,7 @@
         <line num="163" count="0" type="stmt"/>
         <line num="176" count="3" type="stmt"/>
       </file>
-      <file name="Cell.jsx" path="C:\Users\chris\Documents\GitHub\minesweeper-react\src\components\Cell.jsx">
+      <file name="Cell.jsx" path="C:\Users\chaum\Documents\TravelPort\react-minesweeper\src\components\Cell.jsx">
         <metrics statements="9" coveredstatements="9" conditionals="11" coveredconditionals="5" methods="3" coveredmethods="3"/>
         <line num="2" count="1" type="stmt"/>
         <line num="5" count="300" type="stmt"/>
@@ -102,7 +102,7 @@
         <line num="24" count="300" type="stmt"/>
         <line num="35" count="300" type="stmt"/>
       </file>
-      <file name="Flags.jsx" path="C:\Users\chris\Documents\GitHub\minesweeper-react\src\components\Flags.jsx">
+      <file name="Flags.jsx" path="C:\Users\chaum\Documents\TravelPort\react-minesweeper\src\components\Flags.jsx">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -118,7 +118,7 @@
         <line num="7" count="0" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
       </file>
-      <file name="Timer.jsx" path="C:\Users\chris\Documents\GitHub\minesweeper-react\src\components\Timer.jsx">
+      <file name="Timer.jsx" path="C:\Users\chaum\Documents\TravelPort\react-minesweeper\src\components\Timer.jsx">
         <metrics statements="11" coveredstatements="8" conditionals="4" coveredconditionals="1" methods="6" coveredmethods="3"/>
         <line num="2" count="1" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
@@ -132,7 +132,7 @@
         <line num="21" count="3" type="stmt"/>
         <line num="24" count="3" type="stmt"/>
       </file>
-      <file name="WinGame.jsx" path="C:\Users\chris\Documents\GitHub\minesweeper-react\src\components\WinGame.jsx">
+      <file name="WinGame.jsx" path="C:\Users\chaum\Documents\TravelPort\react-minesweeper\src\components\WinGame.jsx">
         <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -142,7 +142,7 @@
     </package>
     <package name="logic">
       <metrics statements="15" coveredstatements="10" conditionals="4" coveredconditionals="1" methods="3" coveredmethods="2"/>
-      <file name="minesweeperLogic.js" path="C:\Users\chris\Documents\GitHub\minesweeper-react\src\logic\minesweeperLogic.js">
+      <file name="minesweeperLogic.js" path="C:\Users\chaum\Documents\TravelPort\react-minesweeper\src\logic\minesweeperLogic.js">
         <metrics statements="15" coveredstatements="10" conditionals="4" coveredconditionals="1" methods="3" coveredmethods="2"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="30" type="stmt"/>
