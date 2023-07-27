@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import Cell from "./Cell";
 import Timer from "./Timer";
 import Flags from "./Flags";
@@ -7,6 +7,8 @@ import { generateBoard, checkWin } from "../logic/minesweeperLogic";
 import LoseGame from "./LoseGame";
 import WinGame from "./WinGame";
 import confetti from "canvas-confetti";
+import MockDataLoader from './MockDataLoader';
+
 
 const INITIAL_BOMBS = 15;
 
@@ -22,11 +24,12 @@ function Board() {
     let count = 0;
     for (let x = Math.max(i - 1, 0); x <= Math.min(i + 1, 9); x++) {
       for (let y = Math.max(j - 1, 0); y <= Math.min(j + 1, 9); y++) {
-        if (board[x][y] === "B") count++;
+        if (board[x] && board[x][y] === 'B') count++;
       }
     }
     return count;
   };
+  
 
   const cascadeReveal = (board, row, col) => {
     // Check if the cell is out of bounds or already revealed (number or bomb)
@@ -70,6 +73,23 @@ function Board() {
     setGameWon(false);
   };
 
+  const handleMockDataSubmit = (mockData) => {
+    // Split the mock data into rows
+    const rows = mockData.split('\n');
+  
+    // Map the rows to a new board state
+    const newBoard = rows.map((row) =>
+      row
+        .split(/[-|]/)
+        .map((cell) => cell.trim())
+        .filter((cell) => cell)
+        .map((cell) => (cell === '*' ? 'B' : false))
+    );
+  
+    // Update the board state with the new board
+    setBoard(newBoard);
+  };  
+  
   const handleClick = (i, j) => {
     const bombCounter = calculateAdjacentBombs(i, j);
     const isFlagged = flagged[`${i}-${j}`];
@@ -140,8 +160,8 @@ function Board() {
   };
 
   return (
-
     <div className="board">
+      <MockDataLoader onSubmit={handleMockDataSubmit} />
       <button className="dark-button" onClick={resetGame}>
         Reset
       </button>
