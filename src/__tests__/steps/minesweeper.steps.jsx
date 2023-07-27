@@ -1,7 +1,13 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import Board from "../../components/Board";
 import Timer from "../../components/Timer";
 import "@testing-library/jest-dom/extend-expect";
@@ -77,8 +83,8 @@ const minesweeperSteps = ({
   });
 
   Then(/^the timer should show (\d+)$/, (expectedTime) => {
-  // Wait for the timer to start counting by checking the timer element content
-  const timerElement = screen.queryByTestId("timer"); // Use a regular expression to match the pattern "Time: 1" or any other number
+    // Wait for the timer to start counting by checking the timer element content
+    const timerElement = screen.queryByTestId("timer"); // Use a regular expression to match the pattern "Time: 1" or any other number
     // Wait for the expectedTime to appear in the timer element content
     waitFor(() => {
       const timeText = timerElement.textContent;
@@ -88,13 +94,18 @@ const minesweeperSteps = ({
   });
 
   Then("the player should lose the game", () => {
-    act(() => {
-      // Check if the "LoseGame" component is present in the DOM
-      const loseGameElement = screen.getByTestId("lose-game");
-      expect(loseGameElement).toBeInTheDocument();
-    });
+    // Check if the "LoseGame" component is present in the DOM
+    const loseGameElement = screen.getByTestId("lose-game");
+    expect(loseGameElement).toBeInTheDocument();
   });
   
+  Then(
+    /^the cell \((\d+),(\d+)\) should show "(\d+)"$/,
+    (row, col, expectedNumber) => {
+      const cell = screen.getByTestId(`cell-${row}-${col}`);
+      expect(cell).toHaveTextContent(expectedNumber);
+    }
+  );
 };
 
 export default minesweeperSteps;

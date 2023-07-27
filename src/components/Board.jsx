@@ -126,7 +126,7 @@ function Board() {
     if (checkWin(board)) {
       revealAllBombs();
       setGameWon(true);
-      confetti();
+      // confetti();
     }
   };
 
