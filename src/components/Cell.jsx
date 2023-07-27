@@ -3,6 +3,8 @@ import React from "react";
 // eslint-disable-next-line react/prop-types
 function Cell({ onClick, value, onContextMenu, flagged, i, j }) {
   const isFlagged = flagged[`${i}-${j}`];
+  const row = parseInt(i) + 1;
+  const col = parseInt(j) + 1;
   
   const getClassName = () => {
     return `cell ${
@@ -23,7 +25,7 @@ function Cell({ onClick, value, onContextMenu, flagged, i, j }) {
 
   return (
     <div
-      data-testid={`cell-${i}-${j}`}
+      data-testid={`cell-${row}-${col}`}
       onClick={onClick}
       className={getClassName()}
       onContextMenu={onContextMenu}
