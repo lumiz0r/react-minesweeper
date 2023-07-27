@@ -5,11 +5,10 @@ import SadEmoji from '../images/CryEmoji.gif';
 // eslint-disable-next-line react/prop-types
 function LoseGame({ resetGame }) {
   return (
-    <div className="lose-game" data-testid="lose-game">
-      <h2>Game Over</h2>
-      <img src={SadEmoji} className="sad-emoji"/>
+    <>
+      <h2 className="dark" data-testid="lose-game">Game Over</h2>
       <button className="reset-button" onClick={resetGame}>Try Again</button>
-    </div>
+    </>
   );
 }
 

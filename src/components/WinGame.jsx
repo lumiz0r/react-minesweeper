@@ -6,11 +6,10 @@ import WinEmoji from '../images/WinEmoji.gif';
 // eslint-disable-next-line react/prop-types
 function WinGame({ resetGame }) {
   return (
-    <div className="lose-game">
-      <h2>You Win!</h2>
-      <img src={WinEmoji} className="sad-emoji"/>
-      <button className="reset-button" onClick={resetGame}>Play Again</button>
-    </div>
+    <>
+      <h2 className="dark" data-testid="lose-game">You Win!</h2>
+      <button className="reset-button"  onClick={resetGame}>Play Again</button>
+    </>
   );
 }
 
