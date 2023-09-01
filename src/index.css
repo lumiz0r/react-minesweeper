@@ -36,17 +36,7 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
+
 button:hover {
   border-color: #646cff;
 }
@@ -69,7 +59,7 @@ button:focus-visible {
 }
 
 /* Dark button style */
-.dark-button {
+/* .dark-button {
   display: inline-block;
   padding: 10px 20px;
   border: none;
@@ -81,7 +71,7 @@ button:focus-visible {
   text-align: center;
   text-decoration: none;
   transition: background-color 0.3s ease;
-}
+} */
 
 .dark-button:hover {
   background-color: #555;
@@ -111,3 +101,7 @@ button:focus-visible {
   text-align: center;
   text-decoration: none;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

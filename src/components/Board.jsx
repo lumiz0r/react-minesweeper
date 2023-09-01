@@ -166,10 +166,10 @@ function Board() {
   };
 
   return (
-    <div className="board" data-testid="board">
+    <div className="flex flex-col items-center" data-testid="board">
       {showMockDataForm && <MockDataLoader onSubmit={handleMockDataSubmit} />}
 
-      <button className="dark-button" onClick={resetGame}>
+      <button className="inline-block px-4 py-2 rounded bg-zinc-700 text-white text-base cursor-pointer transition duration-300 ease-in-out hover:bg-zinc-900" onClick={resetGame}>
         Reset
       </button>
       <Timer
@@ -182,7 +182,7 @@ function Board() {
       {gameOver && <LoseGame resetGame={resetGame} />}
       {gameWon && <WinGame resetGame={resetGame} />}
       {board.map((row, i) => (
-        <div key={i} className="row">
+        <div key={i} className="flex">
           {row.map((_, j) => (
             <Cell
               key={`${i}-${j}`}
