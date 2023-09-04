@@ -7,8 +7,8 @@ function Cell({ onClick, value, onContextMenu, flagged, i, j }) {
   const col = parseInt(j) + 1;
 
   const getClassName = () => {
-    return `cell ${
-      typeof value === "number" || value === "B_clicked" ? "clicked" : ""
+    return `w-12 h-12 text-2xl justify-center items-center flex ${
+      typeof value === "number" || value === "B_clicked" ? "bg-gray-400 cursor-initial outline outline-10 outline-white outline-offset-6" : " bg-gray-900 cursor-pointer outline outline-10 outline-white outline-offset-6"
     }`;
   };
 

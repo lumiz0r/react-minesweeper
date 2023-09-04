@@ -58,20 +58,6 @@ button:focus-visible {
   }
 }
 
-/* Dark button style */
-/* .dark-button {
-  display: inline-block;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #333;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-} */
 
 .dark-button:hover {
   background-color: #555;

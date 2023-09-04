@@ -19,7 +19,11 @@ function Timer({ gameStarted, resetCounter, gameOver, gameWon }) {
   }, [resetCounter]);
 
   return (
-    <div data-testid="timer" className="float-left  font-bold text-white mb-5 mr-96 inline-block px-6 py-2.5 border-none bg-zinc-700 text-white text-base text-center no-underline">
+    <div
+      data-testid="timer"
+      className="float-left
+    font-bold mb-5 mr-96 inline-block px-6 py-2.5 border-none bg-zinc-700 text-white text-base text-center no-underline"
+    >
       Time: {time}
     </div>
   );

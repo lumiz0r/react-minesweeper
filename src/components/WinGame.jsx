@@ -5,10 +5,10 @@ import React from "react";
 function WinGame({ resetGame }) {
   return (
     <>
-      <h2 className="dark" data-testid="win-game">
+      <h2 className="inline-block px-5 py-2.5 border-none bg-zinc-700 text-white text-base text-center no-underline" data-testid="win-game">
         You Win!
       </h2>
-      <button className="reset-button" onClick={resetGame}>
+      <button className="inline-block px-5 py-2.5 border-none bg-zinc-600 text-white text-base text-center no-underline rounded-md mt-5 mb-5 hover:bg-zinc-900" onClick={resetGame}>
         Play Again
       </button>
     </>
