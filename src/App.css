@@ -5,25 +5,6 @@
   text-align: center;
 }
 
-/* .cell {
-  width: 45px;
-  height: 45px;
-  font-size: 24px;
-  background-color: #ccc;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  border: 10px outset #eeeef1;
-} */
-
-/* .cell.clicked {
-  background-color: #aaaaaa99;
-  border: 10px outset #aaaaaad8;
-  cursor: initial;
-} */
-
-
 .mock-submit{
   background-color: #333;
   margin-bottom: 10%;
