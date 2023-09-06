@@ -8,7 +8,7 @@ function Cell({ onClick, value, onContextMenu, flagged, i, j }) {
 
   const getClassName = () => {
     return `w-12 h-12 text-2xl justify-center items-center flex ${
-      typeof value === "number" || value === "B_clicked" ? "bg-gray-400 cursor-initial border border-white shadow-2xl shadow-stone-200" : " bg-gray-900 cursor-pointer border border-white"
+      typeof value === "number" || value === "B_clicked" ? "bg-gray-400 cursor-initial shadow-2xl shadow-stone-800" : " bg-gray-900 cursor-pointer border-t-2 border-r-2 border-white"
     }`;
   };
 
