@@ -1,20 +1,39 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 
+// eslint-disable-next-line react/prop-types
 function PokemonImage({ name }) {
-  // Step 3: Define state and a function to update it
-  const [pokemonId, setId] = useState();
+  const [pokemonData, setPokemonData] = useState(null);
 
   useEffect(() => {
-    fetch(`pokeapi.co/api/v2/pokemon/${name}`)
-        .then(res => res.json())
-        .then(data => setId(data.pokemonId))
+    if (name) {
+      fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Pokemon not found");
+          }
+          return res.json();
+        })
+        .then((data) => setPokemonData(data))
+        .catch((error) => {
+          console.error(error.message);
+          setPokemonData(null);
+        });
+    }
   }, [name]);
 
   return (
     <div className="">
-      {pokemonId && <p>{pokemonId}</p>}
-      {/* <img alt="Pokemon Image" src={imageUrl}></img> */}
+      {pokemonData ? (
+        <div className="">
+          <img className="w-32 float-left"
+            alt={`Pokemon ${pokemonData.name}`}
+            src={pokemonData.sprites.front_default}
+          />
+          <p className="flex justify-start"> Id: {pokemonData.id}</p>
+        </div>
+      ) : (
+        <p className="flex justify-start">Pokémon not found</p>
+      )}
     </div>
   );
 }
