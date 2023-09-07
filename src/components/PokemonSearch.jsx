@@ -17,11 +17,16 @@ function PokemonSearch() {
     <div className="">
       <label className="flex justify-start">
         Enter Pokémon name or Id:
-        <input type="text" className="ml-2" value={pokemonName} onChange={handleInputChange} />
+        <input
+          type="text"
+          className="ml-2"
+          value={pokemonName}
+          onChange={handleInputChange}
+        />
       </label>
 
       <button
-        className="flex justify-start inline-block px-2 py-2 mt-2 mb-2 rounded-lg bg-zinc-700 text-white text-base text-center no-underline"
+        className="flex justify-start inline-block px-4 py-2 rounded bg-zinc-700 text-white text-base cursor-pointer transition duration-300 ease-in-out hover:bg-zinc-900"
         onClick={handleSetNumber}
       >
         Search
