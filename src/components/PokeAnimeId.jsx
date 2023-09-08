@@ -7,7 +7,7 @@ function PokeAnimeId({ pokemonId }) {
 
   useEffect(() => {
     if (pokemonId) {
-        console.log(pokemonId)
+      console.log(pokemonId)
       // Fetch anime data using the Pokemon ID
       fetch(`https://api.jikan.moe/v4/anime/${pokemonId}`)
         .then((response) => {

@@ -16,8 +16,7 @@ function PokemonImage({ name }) {
         })
         .then((data) => setPokemonData(data))
         .catch((error) => {
-          console.error(error.message);
-          setPokemonData(null);
+          setPokemonData("");
         });
     }
   }, [name]);
@@ -35,9 +34,9 @@ function PokemonImage({ name }) {
       ) : (
         <p className="flex justify-start">Pokémon not found</p>
       )}
-            <PokeAnimeId pokemonId={pokemonData.id} />
+      <PokeAnimeId pokemonId={pokemonData.id} />
     </div>
-    
+
   );
 }
 
