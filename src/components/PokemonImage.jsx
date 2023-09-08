@@ -30,7 +30,7 @@ function PokemonImage({ name }) {
             alt={`Pokemon ${pokemonData.name}`}
             src={pokemonData.sprites.front_default}
           />
-          <p className="flex justify-start font-bold mb-5 mr-96 inline-block px-6 py-2.5 border-none text-white text-base text-center no-underline"> Id: {pokemonData.id}</p>
+          <p className="flex justify-start font-bold mb-5 mr-96 px-6 py-2.5 border-none text-white text-base text-center no-underline"> Id: {pokemonData.id}</p>
         </div>
       ) : (
         <p className="flex justify-start">Pokémon not found</p>
