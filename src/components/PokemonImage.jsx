@@ -17,7 +17,7 @@ function PokemonImage({ name }) {
         .then((data) => setPokemonData(data))
         .catch((error) => {
           console.error(error.message);
-          setPokemonData(null);
+          setPokemonData("");
         });
     }
   }, [name]);
